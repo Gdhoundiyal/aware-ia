@@ -1,6 +1,23 @@
 "use client";
 
 import { useState } from "react";
+import {
+  Box,
+  Container,
+  Typography,
+  TextField,
+  Button,
+  Stepper,
+  Step,
+  StepLabel,
+  Grid,
+  MenuItem,
+  Paper,
+  Link,
+} from "@mui/material";
+import PeopleIcon from '@mui/icons-material/People';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 
 const Signup = () => {
   const [step, setStep] = useState(1);
@@ -43,331 +60,344 @@ const Signup = () => {
   };
 
   return (
-    <div className="flex min-h-screen">
+    <Box sx={{ display: "flex", minHeight: "100vh" }}>
       {/* Left Section */}
-      <div className="hidden md:flex justify-center items-center w-1/2 bg-[#1e40af] p-12 text-white">
-        <div>
-          <h1 className="mt-24 text-4xl font-bold">
-            The Future of
+      <Box
+        sx={{
+          display: { xs: "none", md: "flex" },
+          width: "50%",
+          bgcolor: "#1e40af",
+          p: 12,
+          color: "white",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Box>
+          <Typography variant="h3" component="h1" fontWeight="bold" mt={3}>
+            Join the Future of
             <br />
             Soccer Coaching
-          </h1>
-          <div className="mt-8 space-y-4">
-            <p className="text-lg">• Opponent analysis and tactical insights</p>
-            <p className="text-lg">• Extensive team management tools</p>
-            <p className="text-lg">• Performance tracking and analytics</p>
-          </div>
-        </div>
-      </div>
+          </Typography>
+          <Box mt={4} sx={{ "& > *": { mt: 1 } }}>
+            <Typography variant="body2" sx={{ fontSize: '1rem' }}>
+              <TrendingUpIcon sx={{ fontWeight: 900 }} className="text-[#93c5fd] mr-2 " /> Opponent analysis and tactical insights
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: '1rem' }}>
+              <PeopleIcon sx={{ fontWeight: 900 }} className="text-[#93c5fd] mr-2" /> Extensive team management tools
+            </Typography>
+            <Typography variant="body2" sx={{ fontSize: '1rem' }}>
+              <EmojiEventsIcon sx={{ fontWeight: 900 }} className="text-[#93c5fd] mr-2" /> Performance tracking and analytics
+            </Typography>
+          </Box>
+        </Box>
+      </Box>
 
       {/* Right Section */}
-      <div className="flex w-full items-center justify-center bg-white p-6 lg:w-1/2">
-        <div className="w-full max-w-md">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900">
+      <Box
+        sx={{
+          width: { xs: "100%", md: "50%" },
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          p: { xs: 2, sm: 4, md: 6 },
+        }}
+        className="bg-blue-50"
+      >
+        <Container 
+          className="shadow-2xl rounded-xl bg-white pt-5"
+          sx={{ 
+            px: { xs: 2, sm: 3, md: 4 },
+            py: { xs: 3, sm: 4 },
+            maxWidth: { xs: "100%", sm: "sm" }
+          }}
+        >
+          <Box mb={4} sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
+            <Typography variant="h5" fontWeight="bold" color="text.primary">
               Create your account
-            </h2>
-            <p className="mt-2 text-gray-600">
+            </Typography>
+            <Typography variant="body1" color="text.secondary" mt={1}>
               Get started with your free account
-            </p>
-          </div>
+            </Typography>
+          </Box>
 
-          {/* Progress Steps */}
-          <div className="mb-8 flex items-center">
-            <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                step >= 1
-                  ? "bg-[#1e40af] text-white"
-                  : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              1
-            </div>
-            <div
-              className={`h-1 flex-1 ${
-                step >= 2 ? "bg-[#1e40af]" : "bg-gray-200"
-              }`}
-            />
-            <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                step >= 2
-                  ? "bg-[#1e40af] text-white"
-                  : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              2
-            </div>
-            <div
-              className={`h-1 flex-1 ${
-                step >= 3 ? "bg-[#1e40af]" : "bg-gray-200"
-              }`}
-            />
-            <div
-              className={`flex h-8 w-8 items-center justify-center rounded-full ${
-                step >= 3
-                  ? "bg-[#1e40af] text-white"
-                  : "bg-gray-200 text-gray-600"
-              }`}
-            >
-              3
-            </div>
-          </div>
+          {/* Progress Stepper */}
+          <Box sx={{ 
+            width: { xs: '90%', sm: '80%' },
+            mx: 'auto',
+            mb: { xs: 2, sm: 3 }
+          }}>
+            <Stepper activeStep={step - 1} sx={{ mb: 4 }}>
+              <Step>
+                <StepLabel sx={{ '& .MuiStepIcon-root': { fontSize: '2rem' } }}></StepLabel>
+              </Step>
+              <Step>
+                <StepLabel sx={{ '& .MuiStepIcon-root': { fontSize: '2rem' } }}></StepLabel>
+              </Step>
+              <Step>
+                <StepLabel sx={{ '& .MuiStepIcon-root': { fontSize: '2rem' } }}></StepLabel>
+              </Step>
+            </Stepper>
+          </Box>
 
-          <form onSubmit={handleNext}>
+          <form onSubmit={handleNext} sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
             {step === 1 && (
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="firstName"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      First Name
-                    </label>
-                    <input
-                      type="text"
-                      id="firstName"
-                      name="firstName"
-                      value={formData.firstName}
-                      onChange={handleInputChange}
-                      className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="John"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="lastName"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Last Name
-                    </label>
-                    <input
-                      type="text"
-                      id="lastName"
-                      name="lastName"
-                      value={formData.lastName}
-                      onChange={handleInputChange}
-                      className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="Doe"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <label
-                    htmlFor="email"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Email address
-                  </label>
-                  <input
+              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="First Name"
+                    name="firstName"
+                    value={formData.firstName}
+                    onChange={handleInputChange}
+                    placeholder="John"
+                  />
+                </Grid>
+                <Grid item xs={12} sm={6}>
+                  <TextField
+                    fullWidth
+                    label="Last Name"
+                    name="lastName"
+                    value={formData.lastName}
+                    onChange={handleInputChange}
+                    placeholder="Doe"
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
                     type="email"
-                    id="email"
+                    label="Email address"
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="coach@example.com"
                   />
-                </div>
-                <div>
-                  <label
-                    htmlFor="mobile"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Mobile number
-                  </label>
-                  <input
-                    type="tel"
-                    id="mobile"
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    fullWidth
+                    label="Mobile number"
                     name="mobile"
                     value={formData.mobile}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="+1 (555) 555-5555"
                   />
-                </div>
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Password
-                    </label>
-                    <input
-                      type="password"
-                      id="password"
-                      name="password"
-                      value={formData.password}
-                      onChange={handleInputChange}
-                      className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="Min. 8 characters"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="confirmPassword"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Confirm Password
-                    </label>
-                    <input
-                      type="password"
-                      id="confirmPassword"
-                      name="confirmPassword"
-                      value={formData.confirmPassword}
-                      onChange={handleInputChange}
-                      className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                      placeholder="Confirm your password"
-                    />
-                  </div>
-                </div>
-              </div>
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    type="password"
+                    label="Password"
+                    name="password"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    placeholder="Min. 8 characters"
+                  />
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
+                    type="password"
+                    label="Confirm Password"
+                    name="confirmPassword"
+                    value={formData.confirmPassword}
+                    onChange={handleInputChange}
+                    placeholder="Confirm your password"
+                  />
+                </Grid>
+              </Grid>
             )}
 
             {step === 2 && (
-              <div className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="team"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Select Team
-                  </label>
-                  <select
-                    id="team"
+              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
+                <Grid item xs={12}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Select Team"
                     name="team"
                     value={formData.team}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
-                    <option value="">Select a team</option>
-                    <option value="team1">Team 1</option>
-                    <option value="team2">Team 2</option>
-                    <option value="team3">Team 3</option>
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor="club"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Select Club
-                  </label>
-                  <select
-                    id="club"
+                    <MenuItem value="">Select a team</MenuItem>
+                    <MenuItem value="team1">Team 1</MenuItem>
+                    <MenuItem value="team2">Team 2</MenuItem>
+                    <MenuItem value="team3">Team 3</MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Select Club"
                     name="club"
                     value={formData.club}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
-                    <option value="">Select a club</option>
-                    <option value="club1">Club 1</option>
-                    <option value="club2">Club 2</option>
-                    <option value="club3">Club 3</option>
-                  </select>
-                </div>
-                <div>
-                  <label
-                    htmlFor="birthYear"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Birth Year
-                  </label>
-                  <input
+                    <MenuItem value="">Select a club</MenuItem>
+                    <MenuItem value="club1">Club 1</MenuItem>
+                    <MenuItem value="club2">Club 2</MenuItem>
+                    <MenuItem value="club3">Club 3</MenuItem>
+                  </TextField>
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    fullWidth
                     type="number"
-                    id="birthYear"
+                    label="Birth Year"
                     name="birthYear"
                     value={formData.birthYear}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                     placeholder="YYYY"
-                    min="1900"
-                    max={new Date().getFullYear()}
+                    InputProps={{
+                      inputProps: {
+                        min: "1900",
+                        max: new Date().getFullYear(),
+                      },
+                    }}
                   />
-                </div>
-                <div>
-                  <label
-                    htmlFor="gender"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Team Gender
-                  </label>
-                  <select
-                    id="gender"
+                </Grid>
+                <Grid item xs={6}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Team Gender"
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
                   >
-                    <option value="">Select gender</option>
-                    <option value="male">Male</option>
-                    <option value="female">Female</option>
-                    <option value="mixed">Mixed</option>
-                  </select>
-                </div>
-              </div>
+                    <MenuItem value="">Select gender</MenuItem>
+                    <MenuItem value="male">Male</MenuItem>
+                    <MenuItem value="female">Female</MenuItem>
+                    <MenuItem value="mixed">Mixed</MenuItem>
+                  </TextField>
+                </Grid>
+                
+                <Grid item xs={12}>
+                  <Box sx={{ 
+                    p: 2, 
+                    bgcolor: '#f8fafc',
+                    borderRadius: 1,
+                    border: '1px solid #e2e8f0'
+                  }}>
+                    <Typography variant="subtitle1" fontWeight="medium">
+                      Found Team
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                      Complete all selections to see team name
+                    </Typography>
+                  </Box>
+                </Grid>
+
+
+              </Grid>
             )}
 
             {step === 3 && (
-              <div className="space-y-4">
-                <div>
-                  <label
-                    htmlFor="verificationCode"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Enter Verification Code
-                  </label>
-                  <input
-                    type="text"
-                    id="verificationCode"
-                    name="verificationCode"
-                    value={formData.verificationCode}
-                    onChange={handleInputChange}
-                    className="mt-1 block w-full rounded-md border border-gray-300 px-3 py-2 text-center text-2xl tracking-widest shadow-sm focus:border-blue-500 focus:outline-none focus:ring-1 focus:ring-blue-500"
-                    placeholder="Enter 6-digit code"
-                    maxLength={6}
-                  />
-                  <p className="mt-2 text-center text-sm text-gray-500">
-                    Didn't receive the code?{" "}
-                    <button
-                      type="button"
-                      className="text-blue-600 hover:text-blue-500"
-                    >
-                      Resend
-                    </button>
-                  </p>
-                </div>
-              </div>
+              <Box sx={{ 
+                textAlign: "center",
+                px: { xs: 1, sm: 2 }
+              }}>
+                <TextField
+                  fullWidth
+                  label="Verification Code"
+                  name="verificationCode"
+                  value={formData.verificationCode}
+                  onChange={handleInputChange}
+                  placeholder="Enter 6-digit code"
+                  inputProps={{ maxLength: 6 }}
+                  sx={{ 
+                    input: { 
+                      textAlign: "center",
+                      fontSize: "1.5rem",
+                      letterSpacing: "0.5em"
+                    }
+                  }}
+                />
+                <Typography variant="body2" color="text.secondary" mt={2}>
+                  Didn't receive the code?{" "}
+                  <Button color="primary" sx={{ textTransform: "none" }}>
+                    Resend
+                  </Button>
+                </Typography>
+              </Box>
             )}
 
-            <div className="mt-6 flex justify-between">
+            <Box sx={{ 
+              mt: { xs: 3, sm: 4 }, 
+              display: "flex", 
+              justifyContent: "space-between",
+              flexDirection: { xs: 'column', sm: 'row' },
+              gap: { xs: 1, sm: 2 }
+            }}>
               {step > 1 && (
-                <button
-                  type="button"
+                <Button
+                  variant="outlined"
+                  color="primary"
                   onClick={handleBack}
-                  className="rounded-md bg-gray-200 px-4 py-2 text-gray-700 hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2"
+                  fullWidth={window.innerWidth < 600}
+                  sx={{ 
+                    borderRadius: '8px',
+                    padding: { xs: '10px', sm: '12px' },
+                    fontWeight: 'bold',
+                    textTransform: 'none',
+                  }}
                 >
                   Back
-                </button>
+                </Button>
               )}
-              <button
+              <Button
                 type="submit"
-                className={`rounded-md bg-blue-600 px-4 py-2 text-white hover:bg-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-                  step === 1 ? "w-full" : "ml-auto"
-                }`}
+                variant="contained"
+                sx={{ 
+                  ml: { sm: step === 1 ? 0 : 'auto' },
+                  bgcolor: "#1e40af",
+                  mb: '10px',
+                  width: { xs: '100%', sm: step === 1 ? '100%' : 'auto' }
+                }}
               >
                 {step === 1
-                  ? "Next: Team Information"
+                  ? "Team Information"
                   : step === 2
                   ? "Verify Phone"
                   : "Complete Registration"}
-              </button>
-            </div>
+              </Button>
+            </Box>
+
+            {/* Add Login Link */}
+            <Box sx={{ mt: 2, textAlign: 'center' }}>
+              <Typography variant="body2">
+                Already have an account?{' '}
+                <Link href="/login" sx={{ color: '#1e40af', textDecoration: 'none', fontWeight: 'bold' }}>
+                  Login
+                </Link>
+              </Typography>
+            </Box>
+            { step ===2 ? (
+                <Grid item xs={12}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center',
+                  gap: 1,
+                  p: 2, 
+                  bgcolor: '#f8fafc',
+                  borderRadius: 1,
+                  border: '1px solid #e2e8f0',
+                  mt:"15px"
+                }}>
+                  <Box component="span" sx={{ color: 'info.main' }}>ℹ️</Box>
+                  <Typography variant="body2" color="text.secondary">
+                    If you coach multiple teams, you will be able to add your others from your subscription profile screen
+                  </Typography>
+                </Box>
+              </Grid>
+            ) : ( " ") }
           </form>
-        </div>
-      </div>
-    </div>
+
+        </Container>
+      </Box>
+    </Box>
   );
 };
 
