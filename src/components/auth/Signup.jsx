@@ -12,9 +12,8 @@ import {
   StepLabel,
   Grid,
   MenuItem,
-  Paper,
-  Link,
 } from "@mui/material";
+import { Link } from "react-router-dom";
 import PeopleIcon from '@mui/icons-material/People';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
@@ -369,7 +368,7 @@ const Signup = () => {
             <Box sx={{ mt: 2, textAlign: 'center' }}>
               <Typography variant="body2">
                 Already have an account?{' '}
-                <Link href="/login" sx={{ color: '#1e40af', textDecoration: 'none', fontWeight: 'bold' }}>
+                <Link to="/login" className=" text-blue-800">
                   Login
                 </Link>
               </Typography>
