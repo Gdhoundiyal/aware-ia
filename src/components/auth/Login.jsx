@@ -8,12 +8,12 @@ import {
   TextField,
   Button,
   Grid,
-  Link,
 } from "@mui/material";
 import PeopleIcon from '@mui/icons-material/People';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import Alert from '@mui/material/Alert';
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [step, setStep] = useState(1);
@@ -169,7 +169,7 @@ const [alertMessage, setAlertMessage] = useState("");
             <Box sx={{ mt: 2, textAlign: 'center' }}>
               <Typography variant="body2">
                 Do not have any account?{' '}
-                <Link href="/signup" sx={{ color: '#1e40af', textDecoration: 'none', fontWeight: 'bold' }}>
+                <Link to="/signup" className=" text-blue-800" >
                   Create account
                 </Link>
               </Typography>
