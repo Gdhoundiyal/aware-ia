@@ -1,24 +1,16 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import { Box, CssBaseline, Toolbar } from "@mui/material";
 import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
-import PrivateRoute from "./routes/PrivateRoutes";
-import CustomNavbar from "./components/static/Navbar";
-import Sidebar from "./components/dashboard/SideDrawer";
-import { useState } from "react";
 import DashboardLayout from "./components/dashboard/DashBoard";
 import Teams from "./components/dashboard/Teams";
 import Matches from "./components/dashboard/Matches";
 import { Analytics } from "./components/dashboard/Analytics";
 import { Settings } from "./components/dashboard/Settings";
+import OverView from "./components/dashboard/OverView";
 
-function App({ children }) {
-  const [mobileOpen, setMobileOpen] = useState(false);
+function App() {
 
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
   return (
     <Router>
       <AuthProvider>
@@ -31,6 +23,7 @@ function App({ children }) {
             element={<DashboardLayout />
             }
           >
+          <Route path="" element={<OverView />} />
           <Route path="teams" element={<Teams />} />
           <Route path="matches" element={<Matches />} />
           <Route path="analytics" element={<Analytics />} />
