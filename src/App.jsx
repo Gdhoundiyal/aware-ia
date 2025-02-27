@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Login from "./components/auth/login";
 import Signup from "./components/auth/signup";
 import DashboardLayout from "./components/dashboard/DashBoard";
 import Teams from "./components/dashboard/Teams";
@@ -8,6 +7,7 @@ import Matches from "./components/dashboard/Matches";
 import { Analytics } from "./components/dashboard/Analytics";
 import { Settings } from "./components/dashboard/Settings";
 import OverView from "./components/dashboard/OverView";
+import Login from "./components/auth/Login";
 
 function App() {
 
