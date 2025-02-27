@@ -12,8 +12,10 @@ import {
 import PeopleIcon from '@mui/icons-material/People';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import { useDispatch } from "react-redux";
 import Alert from '@mui/material/Alert';
 import { Link } from "react-router-dom";
+import { loginUser } from "../../redux/slices";
 
 const Login = () => {
   const [step, setStep] = useState(1);
@@ -23,7 +25,8 @@ const Login = () => {
 
   });
   const [alertOpen, setAlertOpen] = useState(false);
-const [alertMessage, setAlertMessage] = useState("");
+  const [alertMessage, setAlertMessage] = useState("");
+  const dispatch = useDispatch();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -31,6 +34,7 @@ const [alertMessage, setAlertMessage] = useState("");
       ...prev,
       [name]: value,
     }));
+   
   };
 
   const handleSubmit = (e)=>{
@@ -51,7 +55,9 @@ const [alertMessage, setAlertMessage] = useState("");
       }
 
       console.log("formData",formData)
-      setAlertOpen(false); // Close alert on successful submission
+      const resposnse = dispatch(loginUser(formData));
+      console.log("loginn api data::", resposnse.data)
+      // setAlertOpen(false); // Close alert on successful submission
   }
 
   return (
@@ -161,7 +167,7 @@ const [alertMessage, setAlertMessage] = useState("");
                   width: { xs: '100%'}
                 }}
               >
-               Team Information
+               Login
               </Button>
             </Box>
 
