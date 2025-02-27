@@ -2,6 +2,8 @@ import { useState } from "react";
 import { Box, CssBaseline, Toolbar } from "@mui/material";
 import CustomNavbar from "../static/Navbar";
 import Sidebar from "./SideDrawer";
+import PrivateRoute from "../../routes/PrivateRoutes";
+import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -11,28 +13,37 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
-      <CssBaseline />
-      {/* Navbar */}
-      <CustomNavbar onMenuClick={handleDrawerToggle} />
-      
-      {/* Sidebar */}
-      <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+    // <PrivateRoute>
 
-      {/* Main Content */}
-      <Box 
-        component="main" 
-        sx={{ 
-          flexGrow: 1, 
-          p: 3, 
-          marginLeft: { md: "240px" }, // Ensures content doesn't go under sidebar
-          marginTop: "64px", // Adjust for navbar height
-          width: { md: "calc(100% - 240px)" } // Prevent overlap
+    <Box sx={{ display: "flex", height: "100vh" }}>
+      {/* sidebar */}
+
+      <Box>
+      <Sidebar
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+      />
+      </Box>
+      <Box sx={{ display: "flex", height: "100vh", flexDirection:"column",flexGrow:"3" }}>
+        {/* navbar */}
+
+        <Box>
+        <CustomNavbar onMenuClick={handleDrawerToggle} />
+        </Box>
+       {/*main content  */}
+       
+        <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
         }}
       >
-        <Toolbar />
-        {children}
+        <Outlet /> 
       </Box>
+      </Box>
+      
     </Box>
+  // </PrivateRoute>
   );
 }

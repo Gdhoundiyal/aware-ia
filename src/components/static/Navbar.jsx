@@ -39,7 +39,7 @@ export default function CustomNavbar({ onMenuClick }) {
         <Box>
           <Typography variant="h6" fontWeight="bold">Coach Smith</Typography>
           <Typography variant="body2" color="gray">Head Coach • First Team • Premier League</Typography>
-        </Box>
+        </Box>     
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Button variant="outlined">Select team ▾</Button>
           <IconButton color="inherit">
@@ -51,6 +51,6 @@ export default function CustomNavbar({ onMenuClick }) {
         </Box>
       </Toolbar>
       {renderMenu}
-    </AppBar>
+    </AppBar>  
   );
 }

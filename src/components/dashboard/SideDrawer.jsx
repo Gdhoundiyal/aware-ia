@@ -1,12 +1,13 @@
 import { Drawer, List, ListItemButton, ListItemIcon, ListItemText, Avatar, Box, Typography, Divider } from "@mui/material";
 import { Home, Group, CalendarMonth, BarChart, Settings } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const sidebarItems = [
-  { text: "Overview", icon: <Home />, active: true },
-  { text: "Team", icon: <Group />, active: false },
-  { text: "Matches", icon: <CalendarMonth />, active: false },
-  { text: "Analytics", icon: <BarChart />, active: false },
-  { text: "Settings", icon: <Settings />, active: false },
+  { text: "Overview", icon: <Home />, active: true,path:"/dashboard" },
+  { text: "Team", icon: <Group />, active: false, path:"/dashboard/teams" },
+  { text: "Matches", icon: <CalendarMonth />, active: false,path:"/dashboard/matches" },
+  { text: "Analytics", icon: <BarChart />, active: false,path:"/dashboard/analytics" },
+  { text: "Settings", icon: <Settings />, active: false,path:"/dashboard/settings" },
 ];
 
 export default function Sidebar({ mobileOpen, handleDrawerToggle }) {
@@ -17,8 +18,8 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }) {
           <Typography variant="h6" fontWeight="bold">⚽ AwareIA</Typography>
         </Box>
         <List>
-          {sidebarItems.map(({ text, icon, active }) => (
-            <ListItemButton key={text} sx={{
+          {sidebarItems.map(({ text, icon, active, path }) => (
+            <ListItemButton key={text} component={Link} to={path} sx={{
               backgroundColor: active ? "#2563EB" : "transparent",
               "&:hover": { backgroundColor: "#1E40AF" },
               borderRadius: "8px",
@@ -27,6 +28,7 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }) {
             }}>
               <ListItemIcon sx={{ color: "#fff" }}>{icon}</ListItemIcon>
               <ListItemText primary={text} />
+              {/* <Link to={path} style={{ textDecoration: "none" }} /> */}
             </ListItemButton>
           ))}
         </List>

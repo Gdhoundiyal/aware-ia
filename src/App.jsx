@@ -7,6 +7,11 @@ import PrivateRoute from "./routes/PrivateRoutes";
 import CustomNavbar from "./components/static/Navbar";
 import Sidebar from "./components/dashboard/SideDrawer";
 import { useState } from "react";
+import DashboardLayout from "./components/dashboard/DashBoard";
+import Teams from "./components/dashboard/Teams";
+import Matches from "./components/dashboard/Matches";
+import { Analytics } from "./components/dashboard/Analytics";
+import { Settings } from "./components/dashboard/Settings";
 
 function App({ children }) {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,42 +28,14 @@ function App({ children }) {
           <Route path="login" element={<Login/>} />
           <Route 
             path="/dashboard" 
-            element={
-              <PrivateRoute>
-
-                <Box sx={{ display: "flex", height: "100vh" }}>
-                  {/* sidebar */}
-
-                  <Box>
-                  <Sidebar
-                    mobileOpen={mobileOpen}
-                    handleDrawerToggle={handleDrawerToggle}
-                  />
-                  </Box>
-                  <Box sx={{ display: "flex", height: "100vh", flexDirection:"column",flexGrow:"3" }}>
-                    {/* navbar */}
-
-                    <Box>
-                    <CustomNavbar onMenuClick={handleDrawerToggle} />
-                    </Box>
-                   {/*main content  */}
-                   
-                    <Box
-                    component="main"
-                    sx={{
-                      flexGrow: 1,
-                      p: 3,
-                    }}
-                  >
-                    <Toolbar />
-                    {children}
-                  </Box>
-                  </Box>
-                  
-                </Box>
-              </PrivateRoute>
+            element={<DashboardLayout />
             }
-          />
+          >
+          <Route path="teams" element={<Teams />} />
+          <Route path="matches" element={<Matches />} />
+          <Route path="analytics" element={<Analytics />} />
+          <Route path="settings" element={<Settings />} />
+          </Route>
         </Routes>
       </AuthProvider>
     </Router>
