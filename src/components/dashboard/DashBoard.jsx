@@ -1,11 +1,10 @@
 import { useState } from "react";
-import { Box, CssBaseline, Toolbar } from "@mui/material";
+import { Box, CssBaseline } from "@mui/material";
 import CustomNavbar from "../static/Navbar";
 import Sidebar from "./SideDrawer";
-import PrivateRoute from "../../routes/PrivateRoutes";
 import { Outlet } from "react-router-dom";
 
-export default function DashboardLayout({ children }) {
+export default function DashboardLayout() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   const handleDrawerToggle = () => {
@@ -13,38 +12,55 @@ export default function DashboardLayout({ children }) {
   };
 
   return (
-    // <PrivateRoute>
-
-    <Box sx={{ display: "flex", height: "100vh" }}>
-      {/* sidebar */}
-
-      <Box>
+    <Box sx={{ 
+      display: "flex", 
+      minHeight: "100vh",
+      maxWidth: "100vw",
+      overflow: "hidden" // Prevent body scroll when drawer is open
+    }}>
+      <CssBaseline />
+      
+      {/* Sidebar */}
       <Sidebar
         mobileOpen={mobileOpen}
         handleDrawerToggle={handleDrawerToggle}
       />
-      </Box>
-      <Box sx={{ display: "flex", height: "100vh", flexDirection:"column",flexGrow:"3" }}>
-        {/* navbar */}
 
-        <Box>
-        <CustomNavbar onMenuClick={handleDrawerToggle} />
-        </Box>
-       {/*main content  */}
-       
-        <Box
-        component="main"
-        sx={{
+      {/* Main content wrapper */}
+      <Box 
+        component="main" 
+        sx={{ 
           flexGrow: 1,
-          p: 3,
-          backgroundColor:"#f5f5f5"
+          width: { sm: `calc(100% - 240px)` },
+          display: "flex",
+          flexDirection: "column",
+          overflow: "hidden",
+          maxWidth: "100%"
         }}
       >
-        <Outlet /> 
+        {/* Navbar */}
+        <CustomNavbar onMenuClick={handleDrawerToggle} />
+        
+        {/* Content area */}
+        <Box sx={{
+          flexGrow: 1,
+          p: { xs: 1, sm: 2, md: 3 },
+          backgroundColor: "#f5f5f5",
+          overflow: "auto",
+          height: "calc(100vh - 64px)", // Subtract navbar height
+          '&::-webkit-scrollbar': {
+            width: '0.4em'
+          },
+          '&::-webkit-scrollbar-track': {
+            background: "#f1f1f1"
+          },
+          '&::-webkit-scrollbar-thumb': {
+            backgroundColor: '#888',
+          },
+        }}>
+          <Outlet />
+        </Box>
       </Box>
-      </Box>
-      
     </Box>
-  // </PrivateRoute>
   );
 }

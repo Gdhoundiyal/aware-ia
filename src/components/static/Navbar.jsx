@@ -31,7 +31,13 @@ export default function CustomNavbar({ onMenuClick }) {
   );
 
   return (
-    <AppBar position="fixed" color="default" elevation={0} sx={{ zIndex: 1201, padding: 1, width:"none",position:"static",backgroundColor:"#fff"}}>
+    <AppBar position="fixed" color="default" elevation={0} sx={{ 
+      zIndex: { xs: 1200, md: 2 },
+      padding: 1, 
+      width: "none",
+      position: "static",
+      backgroundColor: "#fff"
+    }}>
       <Toolbar sx={{ display: "flex", justifyContent: "space-between" }}>
         <IconButton color="inherit" aria-label="open drawer" onClick={onMenuClick} sx={{ display: { md: "none" } }}>
           <MenuIcon />

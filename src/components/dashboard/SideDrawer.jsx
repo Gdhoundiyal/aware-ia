@@ -52,24 +52,34 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }) {
         variant="temporary"
         open={mobileOpen}
         onClose={handleDrawerToggle}
-        sx={{ display: { xs: "block", md: "none" } }}
+        ModalProps={{
+          keepMounted: true,
+        }}
+        sx={{
+          display: { xs: 'block', md: 'none' },
+          '& .MuiDrawer-paper': {
+            width: 240,
+            backgroundColor: "#111827",
+            zIndex: 1300,
+          },
+        }}
       >
         {drawerContent}
       </Drawer>
       <Drawer
         variant="permanent"
         sx={{
-          width: 240,
-          flexShrink: 0,
-          display: { xs: "none", md: "block" },
-          "& .MuiDrawer-paper": {
+          display: { xs: 'none', md: 'block' },
+          '& .MuiDrawer-paper': {
             width: 240,
             backgroundColor: "#111827",
             color: "#fff",
             borderRight: "none",
+            position: 'relative',
+            zIndex: 1,
           },
         }}
-        open    
+        open
       >
         {drawerContent}
       </Drawer>
