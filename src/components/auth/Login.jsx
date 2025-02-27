@@ -16,6 +16,8 @@ import { useDispatch } from "react-redux";
 import Alert from '@mui/material/Alert';
 import { Link } from "react-router-dom";
 import { loginUser } from "../../redux/slices";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [step, setStep] = useState(1);
@@ -27,6 +29,8 @@ const Login = () => {
   const [alertOpen, setAlertOpen] = useState(false);
   const [alertMessage, setAlertMessage] = useState("");
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -37,7 +41,7 @@ const Login = () => {
    
   };
 
-  const handleSubmit = (e)=>{
+  const handleSubmit = async (e)=>{
       e.preventDefault();
 
       // Validation
@@ -54,11 +58,13 @@ const Login = () => {
           return;
       }
 
-      console.log("formData",formData)
       const resposnse = dispatch(loginUser(formData));
-      console.log("loginn api data::", resposnse.data)
-      // setAlertOpen(false); // Close alert on successful submission
+      const resposnse = await dispatch(loginUser(formData));
+      let token = localStorage.getItem('auth_token')
+      if(token){
+        navigate('/dashboard')      }
   }
+
 
   return (
     <Box sx={{ display: "flex", minHeight: "100vh" }}>

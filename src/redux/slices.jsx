@@ -5,10 +5,10 @@ import apiService from "../redux/ApiServices";
 export const loginUser = createAsyncThunk("user/login", async (credentials, { rejectWithValue }) => {
     try {
         const res =  await apiService.login(credentials);
-        console.log("logged in successfully", res)
         localStorage.setItem('auth_token', res.token);
         let token = localStorage.getItem('auth_token')
-        console.log("tokennn", token);
+        localStorage.setItem('auth_token', res.token);
+        return res
     } catch (error) {
         return rejectWithValue(error.response.data);
     }
