@@ -10,53 +10,58 @@ import {
   Stepper,
   Step,
   StepLabel,
-  Grid,
+  Stack,
   MenuItem,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import PeopleIcon from '@mui/icons-material/People';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import PeopleIcon from "@mui/icons-material/People";
+import TrendingUpIcon from "@mui/icons-material/TrendingUp";
+import EmojiEventsIcon from "@mui/icons-material/EmojiEvents";
 import axiosInstance from "../../axios/axiosInstance";
-import axios from "axios";
 
 const Signup = () => {
+  useEffect(() => {
+    const allLeague = async () => {
+      const res = await axiosInstance.get("/leagues");
+      setLeague(res.data);
+    };
+    const allClubs = async () => {
+      const res = await axiosInstance.get("/clubs");
+      setClubs(res.data);
+    };
+    const allBirthYear = async () => {
+      const res = await axiosInstance.get("/teams/age");
+      setBirth(res.data);
+    };
+    const allTeams = async () => {
+      const res = await axiosInstance.get("/teams");
+      setTeams(res.data);
+    };
 
-  useEffect(()=>{
-      const allLeague = async() =>{
-        const res = await axiosInstance.get("/leagues");
-        console.log( "league", res.data)
-      }
-      const allClubs = async()=>{
-        const res = await axiosInstance.get("/clubs");
-        console.log("clubs", res.data); 
-      }
-      const allBirthYear = async()=>{
-        const res = await axiosInstance.get("/teams/age");
-        console.log("all birth years", res.data)
-      }
+    allLeague();
+    allClubs();
+    allBirthYear();
+    allTeams();
+  }, []);
 
-
-      allLeague();
-      allClubs();
-      allBirthYear();
-  })
-
-
+  const [league, setLeague] = useState([]);
+  const [birth, setBirth] = useState([]);
+  const [clubs, setClubs] = useState([]);
+  const [teams, setTeams] = useState([]);
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
     email: "",
-    mobile: "",
+    mobileNumber: "",
     password: "",
     confirmPassword: "",
-    league:"",
-    team: "",
+    leagueId : "",
+    teamId: "",
     club: "",
     birthYear: "",
     gender: "",
-    verificationCode: "",
+    otp: "",
   });
 
   const handleInputChange = (e) => {
@@ -67,14 +72,27 @@ const Signup = () => {
     }));
   };
 
+  const handleSubmit = async(e)=>{
+    e.preventDefault();
+    console.log("formdata",formData)
+    try {
+      const res = await axiosInstance.post("/coach", formData);
+      console.log("res",res)
+      setStep(step + 1);
+    } catch (error) {
+      console.error("Error registering coach:", error);
+    
+    }
+  }
+
   const handleNext = (e) => {
     e.preventDefault();
-    if (step < 3) {
-      setStep(step + 1);
-    } else {
-      // Handle final submission
-      console.log("Form submitted:", formData);
+    if (step == 2) {
+      handleSubmit(e);
     }
+    else if (step<3){
+        setStep(step+1);
+      }
   };
 
   const handleBack = () => {
@@ -104,14 +122,26 @@ const Signup = () => {
             Soccer Coaching
           </Typography>
           <Box mt={4} sx={{ "& > *": { mt: 1 } }}>
-            <Typography variant="body2" sx={{ fontSize: '1rem' }}>
-              <TrendingUpIcon sx={{ fontWeight: 900 }} className="text-[#93c5fd] mr-2 " /> Opponent analysis and tactical insights
+            <Typography variant="body2" sx={{ fontSize: "1rem" }}>
+              <TrendingUpIcon
+                sx={{ fontWeight: 900 }}
+                className="text-[#93c5fd] mr-2 "
+              />{" "}
+              Opponent analysis and tactical insights
             </Typography>
-            <Typography variant="body2" sx={{ fontSize: '1rem' }}>
-              <PeopleIcon sx={{ fontWeight: 900 }} className="text-[#93c5fd] mr-2" /> Extensive team management tools
+            <Typography variant="body2" sx={{ fontSize: "1rem" }}>
+              <PeopleIcon
+                sx={{ fontWeight: 900 }}
+                className="text-[#93c5fd] mr-2"
+              />{" "}
+              Extensive team management tools
             </Typography>
-            <Typography variant="body2" sx={{ fontSize: '1rem' }}>
-              <EmojiEventsIcon sx={{ fontWeight: 900 }} className="text-[#93c5fd] mr-2" /> Performance tracking and analytics
+            <Typography variant="body2" sx={{ fontSize: "1rem" }}>
+              <EmojiEventsIcon
+                sx={{ fontWeight: 900 }}
+                className="text-[#93c5fd] mr-2"
+              />{" "}
+              Performance tracking and analytics
             </Typography>
           </Box>
         </Box>
@@ -128,12 +158,12 @@ const Signup = () => {
         }}
         className="bg-blue-50"
       >
-        <Container 
+        <Container
           className="shadow-2xl rounded-xl bg-white pt-5"
-          sx={{ 
+          sx={{
             px: { xs: 2, sm: 3, md: 4 },
             py: { xs: 3, sm: 4 },
-            maxWidth: { xs: "100%", sm: "sm" }
+            maxWidth: { xs: "100%", sm: "sm" },
           }}
         >
           <Box mb={4} sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
@@ -141,33 +171,41 @@ const Signup = () => {
               Create your account
             </Typography>
             <Typography variant="body1" color="text.secondary" mt={1}>
-              Get started with your free account
+              { step === 3 ?   ("Verify you account") : ("Get started with your free account")   } 
             </Typography>
           </Box>
 
           {/* Progress Stepper */}
-          <Box sx={{ 
-            width: { xs: '90%', sm: '80%' },
-            mx: 'auto',
-            mb: { xs: 2, sm: 3 }
-          }}>
+          <Box
+            sx={{
+              width: { xs: "90%", sm: "80%" },
+              mx: "auto",
+              mb: { xs: 2, sm: 3 },
+            }}
+          >
             <Stepper activeStep={step - 1} sx={{ mb: 4 }}>
               <Step>
-                <StepLabel sx={{ '& .MuiStepIcon-root': { fontSize: '2rem' } }}></StepLabel>
+                <StepLabel
+                  sx={{ "& .MuiStepIcon-root": { fontSize: "2rem" } }}
+                ></StepLabel>
               </Step>
               <Step>
-                <StepLabel sx={{ '& .MuiStepIcon-root': { fontSize: '2rem' } }}></StepLabel>
+                <StepLabel
+                  sx={{ "& .MuiStepIcon-root": { fontSize: "2rem" } }}
+                ></StepLabel>
               </Step>
               <Step>
-                <StepLabel sx={{ '& .MuiStepIcon-root': { fontSize: '2rem' } }}></StepLabel>
+                <StepLabel
+                  sx={{ "& .MuiStepIcon-root": { fontSize: "2rem" } }}
+                ></StepLabel>
               </Step>
             </Stepper>
           </Box>
 
           <form onSubmit={handleNext} sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
             {step === 1 && (
-              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
-                <Grid item xs={12} sm={6}>
+              <Stack container spacing={{ xs: 1.5, sm: 2 }}>
+                <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
                   <TextField
                     fullWidth
                     label="First Name"
@@ -176,8 +214,7 @@ const Signup = () => {
                     onChange={handleInputChange}
                     placeholder="John"
                   />
-                </Grid>
-                <Grid item xs={12} sm={6}>
+
                   <TextField
                     fullWidth
                     label="Last Name"
@@ -186,8 +223,8 @@ const Signup = () => {
                     onChange={handleInputChange}
                     placeholder="Doe"
                   />
-                </Grid>
-                <Grid item xs={12}>
+                </Stack>
+                <Stack item xs={12}>
                   <TextField
                     fullWidth
                     type="email"
@@ -197,18 +234,18 @@ const Signup = () => {
                     onChange={handleInputChange}
                     placeholder="coach@example.com"
                   />
-                </Grid>
-                <Grid item xs={12}>
+                </Stack>
+                <Stack item xs={12}>
                   <TextField
                     fullWidth
                     label="Mobile number"
-                    name="mobile"
-                    value={formData.mobile}
+                    name="mobileNumber"
+                    value={formData.mobileNumber}
                     onChange={handleInputChange}
                     placeholder="+1 (555) 555-5555"
                   />
-                </Grid>
-                <Grid item xs={6}>
+                </Stack>
+                <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
                   <TextField
                     fullWidth
                     type="password"
@@ -218,8 +255,7 @@ const Signup = () => {
                     onChange={handleInputChange}
                     placeholder="Min. 8 characters"
                   />
-                </Grid>
-                <Grid item xs={6}>
+
                   <TextField
                     fullWidth
                     type="password"
@@ -229,28 +265,30 @@ const Signup = () => {
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
                   />
-                </Grid>
-              </Grid>
+                </Stack>
+              </Stack>
             )}
 
             {step === 2 && (
-              <Grid container spacing={{ xs: 1.5, sm: 2 }}>
-                <Grid item xs={12}>
+              <Stack container spacing={{ xs: 1.5, sm: 2 }}>
+                <Stack item xs={12}>
                   <TextField
                     select
                     fullWidth
                     label="Select League"
-                    name="team"
-                    value={formData.team}
+                    name="leagueId"
+                    value={formData.leagueId}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="">Select League</MenuItem>
-                    <MenuItem value="team1">Team 1</MenuItem>
-                    <MenuItem value="team2">Team 2</MenuItem>
-                    <MenuItem value="team3">Team 3</MenuItem>
+                    <MenuItem value="">Select a league</MenuItem>
+                    {league.map((leagueItem) => (
+                      <MenuItem key={leagueItem._id} value={leagueItem._id}>
+                        {leagueItem.league_title}
+                      </MenuItem>
+                    ))}
                   </TextField>
-                </Grid>
-                <Grid item xs={12}>
+                </Stack>
+                <Stack item xs={12}>
                   <TextField
                     select
                     fullWidth
@@ -259,28 +297,31 @@ const Signup = () => {
                     value={formData.club}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="">Select Club</MenuItem>
-                    <MenuItem value="club1">Club 1</MenuItem>
-                    <MenuItem value="club2">Club 2</MenuItem>
-                    <MenuItem value="club3">Club 3</MenuItem>
+                    <MenuItem value="">Select a club</MenuItem>
+                    {clubs.map((clubItem) => (
+                      <MenuItem key={clubItem._id} value={clubItem._id}>
+                        {clubItem.club_name}
+                      </MenuItem>
+                    ))}
                   </TextField>
-                </Grid>
-                <Grid item xs={6}>
+                </Stack>
+                <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
                   <TextField
                     select
-                    fullWidth
-                    label="Player Birth year"
-                    name="gender"
-                    value={formData.gender}
+                    label="Birth year"
+                    name="birthYear"
+                    value={formData.birthYear}
                     onChange={handleInputChange}
+                    sx={{ width: "50%" }} // This replaces xs={6}
                   >
-                    <MenuItem value="">Select Birth Year</MenuItem>
-                    <MenuItem value="male">U11</MenuItem>
-                    <MenuItem value="female">U12</MenuItem>
-                    <MenuItem value="mixed">U13</MenuItem>
+                    <MenuItem value="">Select birth year</MenuItem>
+                    {birth.map((year) => (
+                      <MenuItem key={year.key} value={year.key}>
+                        {year.key}
+                      </MenuItem>
+                    ))}
                   </TextField>
-                </Grid>
-                <Grid item xs={6}>
+
                   <TextField
                     select
                     fullWidth
@@ -288,53 +329,70 @@ const Signup = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
+                    sx={{ width: "50%" }} // This replaces xs={6}
                   >
                     <MenuItem value="">Select Player Gender</MenuItem>
                     <MenuItem value="male">Male</MenuItem>
                     <MenuItem value="female">Female</MenuItem>
-                    <MenuItem value="mixed">Mixed</MenuItem>
                   </TextField>
-                </Grid>
-                
-                <Grid item xs={12}>
-                  <Box sx={{ 
-                    p: 2, 
-                    bgcolor: '#f8fafc',
-                    borderRadius: 1,
-                    border: '1px solid #e2e8f0'
-                  }}>
-                    <Typography variant="subtitle1" fontWeight="medium">
-                    My Team
+                </Stack>
+                <Stack item xs={12}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="Select Your Primary Team"
+                    name="teamId"
+                    value={formData.teamId}
+                    onChange={handleInputChange}
+                    disabled={!formData.club || !formData.birthYear}
+                  >
+                    <MenuItem value="">Select a team</MenuItem>
+                    {teams
+                      .filter(
+                        (team) =>
+                          team.club_id == formData.club &&
+                          team.age === formData.birthYear
+                      )
+                      .map((team) => (
+                        <MenuItem key={team._id} value={team._id}>
+                          {team.team_name}
+                        </MenuItem>
+                      ))}
+                  </TextField>
+                  {!formData.club || !formData.birthYear ? (
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ mt: 1 }}
+                    >
+                      Select club and birth year to see available teams
                     </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    Select Your Primary Team
-                    </Typography>
-                  </Box>
-                </Grid>
-
-
-              </Grid>
+                  ) : null}
+                </Stack>
+              </Stack>
             )}
 
             {step === 3 && (
-              <Box sx={{ 
-                textAlign: "center",
-                px: { xs: 1, sm: 2 }
-              }}>
+              <Box
+                sx={{
+                  textAlign: "center",
+                  px: { xs: 1, sm: 2 },
+                }}
+              >
                 <TextField
                   fullWidth
                   label="Verification Code"
-                  name="verificationCode"
-                  value={formData.verificationCode}
+                  name="otp"
+                  value={formData.otp}
                   onChange={handleInputChange}
                   placeholder="Enter 6-digit code"
                   inputProps={{ maxLength: 6 }}
-                  sx={{ 
-                    input: { 
+                  sx={{
+                    input: {
                       textAlign: "center",
                       fontSize: "1.5rem",
-                      letterSpacing: "0.5em"
-                    }
+                      letterSpacing: "0.5em",
+                    },
                   }}
                 />
                 <Typography variant="body2" color="text.secondary" mt={2}>
@@ -346,24 +404,26 @@ const Signup = () => {
               </Box>
             )}
 
-            <Box sx={{ 
-              mt: { xs: 3, sm: 4 }, 
-              display: "flex", 
-              justifyContent: "space-between",
-              flexDirection: { xs: 'column', sm: 'row' },
-              gap: { xs: 1, sm: 2 }
-            }}>
+            <Box
+              sx={{
+                mt: { xs: 3, sm: 4 },
+                display: "flex",
+                justifyContent: "space-between",
+                flexDirection: { xs: "column", sm: "row" },
+                gap: { xs: 1, sm: 2 },
+              }}
+            >
               {step > 1 && (
                 <Button
                   variant="outlined"
                   color="primary"
                   onClick={handleBack}
                   fullWidth={window.innerWidth < 600}
-                  sx={{ 
-                    borderRadius: '8px',
-                    padding: { xs: '10px', sm: '12px' },
-                    fontWeight: 'bold',
-                    textTransform: 'none',
+                  sx={{
+                    borderRadius: "8px",
+                    padding: { xs: "10px", sm: "12px" },
+                    fontWeight: "bold",
+                    textTransform: "none",
                   }}
                 >
                   Back
@@ -372,51 +432,57 @@ const Signup = () => {
               <Button
                 type="submit"
                 variant="contained"
-                sx={{ 
-                  ml: { sm: step === 1 ? 0 : 'auto' },
+                sx={{
+                  ml: { sm: step === 1 ? 0 : "auto" },
                   bgcolor: "#1e40af",
-                  mb: '10px',
-                  width: { xs: '100%', sm: step === 1 ? '100%' : 'auto' }
+                  mb: "10px",
+                  width: { xs: "100%", sm: step === 1 ? "100%" : "auto" },
                 }}
               >
                 {step === 1
                   ? "Select Your Team"
                   : step === 2
                   ? "Verify Phone"
-                  : "Verify your account"}
+                  : "Complete Registration"}
               </Button>
             </Box>
 
             {/* Add Login Link */}
-            <Box sx={{ mt: 2, textAlign: 'center' }}>
+            <Box sx={{ mt: 2, textAlign: "center" }}>
               <Typography variant="body2">
-                Already have an account?{' '}
+                Already have an account?{" "}
                 <Link to="/login" className=" text-blue-800">
                   Login
                 </Link>
               </Typography>
             </Box>
-            { step ===2 ? (
-                <Grid item xs={12}>
-                <Box sx={{ 
-                  display: 'flex', 
-                  alignItems: 'center',
-                  gap: 1,
-                  p: 2, 
-                  bgcolor: '#f8fafc',
-                  borderRadius: 1,
-                  border: '1px solid #e2e8f0',
-                  mt:"15px"
-                }}>
-                  <Box component="span" sx={{ color: 'info.main' }}>ℹ️</Box>
+            {step === 2 ? (
+              <Stack item xs={12}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 1,
+                    p: 2,
+                    bgcolor: "#f8fafc",
+                    borderRadius: 1,
+                    border: "1px solid #e2e8f0",
+                    mt: "15px",
+                  }}
+                >
+                  <Box component="span" sx={{ color: "info.main" }}>
+                    ℹ️
+                  </Box>
                   <Typography variant="body2" color="text.secondary">
-                    If you coach multiple teams, you will be able to add your others from your subscription profile screen
+                    If you coach multiple teams, you will be able to add your
+                    others from your subscription profile screen
                   </Typography>
                 </Box>
-              </Grid>
-            ) : ( " ") }
+              </Stack>
+            ) : (
+              " "
+            )}
           </form>
-
         </Container>
       </Box>
     </Box>
