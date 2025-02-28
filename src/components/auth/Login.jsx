@@ -18,6 +18,7 @@ import { Link } from "react-router-dom";
 import { loginUser } from "../../redux/slices";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import axiosInstance from "../../axios/axiosInstance";
 
 const Login = () => {
   const [step, setStep] = useState(1);
@@ -41,28 +42,42 @@ const Login = () => {
    
   };
 
-  const handleSubmit = async (e)=>{
-      e.preventDefault();
+  const handleSubmit = (e) => {
+    e.preventDefault();
 
-      // Validation
-      if (!formData.email || !formData.password) {
-          setAlertMessage("Please fill all the details.");
-          setAlertOpen(true);
-          return;
-      }
+    // Validation
+    if (!formData.email || !formData.password) {
+        setAlertMessage("Please fill all the details.");
+        setAlertOpen(true);
+        return;
+    }
 
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(formData.email)) {
-          setAlertMessage("Please enter a valid email address.");
-          setAlertOpen(true);
-          return;
-      }
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(formData.email)) {
+        setAlertMessage("Please enter a valid email address.");
+        setAlertOpen(true);
+        return;
+    }
 
-      const resposnse = await dispatch(loginUser(formData));
-      let token = localStorage.getItem('auth_token')
-      if(token){
-        navigate('/dashboard')      }
-  }
+    // Call API without making the function `async`
+    axiosInstance.post("/coach/login", formData)
+        .then((res) => {
+            if (res.data.token) {
+                localStorage.setItem("auth_token", res.data.token);
+                
+                // Ensure token is stored before navigating
+                navigate("/dashboard");
+            } else {
+                setAlertMessage("Login failed. Please try again.");
+                setAlertOpen(true);
+            }
+        })
+        .catch((error) => {
+            setAlertMessage(error.response?.data?.message || "Login failed.");
+            setAlertOpen(true);
+        });
+};
+
 
 
   return (
