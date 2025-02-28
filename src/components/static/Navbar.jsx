@@ -1,14 +1,21 @@
-  import { useState } from "react";
+  import { useEffect, useState } from "react";
   import { AppBar, Box, Toolbar, Typography, IconButton, Menu, MenuItem, Button } from "@mui/material";
   import { AccountCircle, Notifications, Menu as MenuIcon } from "@mui/icons-material";
 
   export default function CustomNavbar({ onMenuClick }) {
     const [anchorEl, setAnchorEl] = useState(null);
+    const [userdata, setUserData] = useState({})
     const isMenuOpen = Boolean(anchorEl);
 
     const handleProfileMenuOpen = (event) => {
       setAnchorEl(event.currentTarget);
     };
+
+    useEffect(()=>{
+      const userdata = localStorage.getItem("user");
+      setUserData(JSON.parse(userdata))
+      console.log("userdataaaaa",userdata)
+    },[])
 
     const handleMenuClose = () => {
       setAnchorEl(null);
@@ -43,8 +50,8 @@
             <MenuIcon />
           </IconButton>
           <Box>
-            <Typography variant="h6" fontWeight="bold">Coach Smith</Typography>
-            <Typography variant="body2" color="gray">Head Coach • First Team • Premier League</Typography>
+            <Typography variant="h6" fontWeight="bold">{userdata?.firstName + " " + userdata?.lastName }</Typography>
+            <Typography variant="body2" color="gray">{userdata?.role} • Alba Tiger • Premier League</Typography>
           </Box>     
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Button variant="outlined">Select team ▾</Button>

@@ -64,6 +64,7 @@ const Login = () => {
         .then((res) => {
             if (res.data.token) {
                 localStorage.setItem("auth_token", res.data.token);
+                localStorage.setItem("user", JSON.stringify(res.data.coach));
                 
                 // Ensure token is stored before navigating
                 navigate("/dashboard");
