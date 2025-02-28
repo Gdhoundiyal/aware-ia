@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Box,
   Container,
@@ -17,8 +17,32 @@ import { Link } from "react-router-dom";
 import PeopleIcon from '@mui/icons-material/People';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import axiosInstance from "../../axios/axiosInstance";
+import axios from "axios";
 
 const Signup = () => {
+
+  useEffect(()=>{
+      const allLeague = async() =>{
+        const res = await axiosInstance.get("/leagues");
+        console.log( "league", res.data)
+      }
+      const allClubs = async()=>{
+        const res = await axiosInstance.get("/clubs");
+        console.log("clubs", res.data); 
+      }
+      const allBirthYear = async()=>{
+        const res = await axiosInstance.get("/teams/age");
+        console.log("all birth years", res.data)
+      }
+
+
+      allLeague();
+      allClubs();
+      allBirthYear();
+  })
+
+
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     firstName: "",
@@ -27,6 +51,7 @@ const Signup = () => {
     mobile: "",
     password: "",
     confirmPassword: "",
+    league:"",
     team: "",
     club: "",
     birthYear: "",
@@ -214,7 +239,7 @@ const Signup = () => {
                   <TextField
                     select
                     fullWidth
-                    label="Select Team"
+                    label="Select League"
                     name="team"
                     value={formData.team}
                     onChange={handleInputChange}
@@ -242,20 +267,18 @@ const Signup = () => {
                 </Grid>
                 <Grid item xs={6}>
                   <TextField
+                    select
                     fullWidth
-                    type="number"
-                    label="Birth Year"
-                    name="birthYear"
-                    value={formData.birthYear}
+                    label="Birth year"
+                    name="gender"
+                    value={formData.gender}
                     onChange={handleInputChange}
-                    placeholder="YYYY"
-                    InputProps={{
-                      inputProps: {
-                        min: "1900",
-                        max: new Date().getFullYear(),
-                      },
-                    }}
-                  />
+                  >
+                    <MenuItem value="">Select birth year</MenuItem>
+                    <MenuItem value="male">U11</MenuItem>
+                    <MenuItem value="female">U12</MenuItem>
+                    <MenuItem value="mixed">U13</MenuItem>
+                  </TextField>
                 </Grid>
                 <Grid item xs={6}>
                   <TextField

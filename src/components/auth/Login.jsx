@@ -58,7 +58,6 @@ const Login = () => {
           return;
       }
 
-      const resposnse = dispatch(loginUser(formData));
       const resposnse = await dispatch(loginUser(formData));
       let token = localStorage.getItem('auth_token')
       if(token){
