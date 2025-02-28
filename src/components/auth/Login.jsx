@@ -123,7 +123,7 @@ const Login = () => {
               Welcome Back
             </Typography>
             <Typography variant="body1" color="text.secondary" mt={1}>
-              Sign In to continue to your account
+              Sign in to continue to your account
             </Typography>
           </Box>
 

@@ -244,7 +244,7 @@ const Signup = () => {
                     value={formData.team}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="">Select a team</MenuItem>
+                    <MenuItem value="">Select League</MenuItem>
                     <MenuItem value="team1">Team 1</MenuItem>
                     <MenuItem value="team2">Team 2</MenuItem>
                     <MenuItem value="team3">Team 3</MenuItem>
@@ -259,7 +259,7 @@ const Signup = () => {
                     value={formData.club}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="">Select a club</MenuItem>
+                    <MenuItem value="">Select Club</MenuItem>
                     <MenuItem value="club1">Club 1</MenuItem>
                     <MenuItem value="club2">Club 2</MenuItem>
                     <MenuItem value="club3">Club 3</MenuItem>
@@ -269,12 +269,12 @@ const Signup = () => {
                   <TextField
                     select
                     fullWidth
-                    label="Birth year"
+                    label="Player Birth year"
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="">Select birth year</MenuItem>
+                    <MenuItem value="">Select Birth Year</MenuItem>
                     <MenuItem value="male">U11</MenuItem>
                     <MenuItem value="female">U12</MenuItem>
                     <MenuItem value="mixed">U13</MenuItem>
@@ -284,12 +284,12 @@ const Signup = () => {
                   <TextField
                     select
                     fullWidth
-                    label="Team Gender"
+                    label="Player Gender"
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
                   >
-                    <MenuItem value="">Select gender</MenuItem>
+                    <MenuItem value="">Select Player Gender</MenuItem>
                     <MenuItem value="male">Male</MenuItem>
                     <MenuItem value="female">Female</MenuItem>
                     <MenuItem value="mixed">Mixed</MenuItem>
@@ -304,10 +304,10 @@ const Signup = () => {
                     border: '1px solid #e2e8f0'
                   }}>
                     <Typography variant="subtitle1" fontWeight="medium">
-                      Found Team
+                    My Team
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                      Complete all selections to see team name
+                    Select Your Primary Team
                     </Typography>
                   </Box>
                 </Grid>
@@ -380,10 +380,10 @@ const Signup = () => {
                 }}
               >
                 {step === 1
-                  ? "Team Information"
+                  ? "Select Your Team"
                   : step === 2
                   ? "Verify Phone"
-                  : "Complete Registration"}
+                  : "Verify your account"}
               </Button>
             </Box>
 
