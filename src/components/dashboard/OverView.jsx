@@ -4,6 +4,9 @@ import MatchWeather from "./WeatherForecast";
 import TeamStatus from "./TeamStatus";
 import PreMatchChecklist from "./PrematchCecklist";
 import MatchPreparation from "./Matchpreparation";
+import Teams from "./Teams";
+import Matches from "./Matches";
+import SportsAnalyticsDashboard from "./Analytics";
 
 
 const Overview = () => {
@@ -53,6 +56,9 @@ const Overview = () => {
       <TeamStatus {...teamData} />
       <PreMatchChecklist {...checklistData} />
     </Box>
+    <Teams/>
+    <Matches/>
+    <SportsAnalyticsDashboard/>
     </Stack>
   );
 };

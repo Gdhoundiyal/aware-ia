@@ -1,5 +1,5 @@
   import { useEffect, useState } from "react";
-  import { AppBar, Box, Toolbar, Typography, IconButton, Menu, MenuItem, Button } from "@mui/material";
+  import { AppBar, Box, Toolbar, Typography, IconButton, Menu, MenuItem, Button, TextField } from "@mui/material";
   import { AccountCircle, Notifications, Menu as MenuIcon } from "@mui/icons-material";
 
   export default function CustomNavbar({ onMenuClick }) {
@@ -54,7 +54,22 @@
             <Typography variant="body2" color="gray">{userdata?.role} • {userdata?.team?.[0]?.teamName} • Premier League</Typography>
           </Box>     
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-            <Button variant="outlined">Select team ▾</Button>
+            <TextField
+              select
+              size="small"
+              value={userdata?.team?.[0]?.teamId || ""}
+              onChange={(e) => {
+                // Handle team change if needed
+                console.log("Selected team:", e.target.value);
+              }}
+              sx={{ minWidth: 200 }}
+            >
+              {userdata?.team?.map((team) => (
+                <MenuItem key={team.teamId} value={team.teamId}>
+                  {team.teamName}
+                </MenuItem>
+              ))}
+            </TextField>
             <IconButton color="inherit">
               <Notifications />
             </IconButton>
