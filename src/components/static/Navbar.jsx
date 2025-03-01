@@ -14,7 +14,6 @@
     useEffect(()=>{
       const userdata = localStorage.getItem("user");
       setUserData(JSON.parse(userdata))
-      console.log("userdataaaaa",userdata)
     },[])
 
     const handleMenuClose = () => {
