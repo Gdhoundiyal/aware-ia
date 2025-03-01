@@ -51,7 +51,7 @@
           </IconButton>
           <Box>
             <Typography variant="h6" fontWeight="bold">{userdata?.firstName + " " + userdata?.lastName }</Typography>
-            <Typography variant="body2" color="gray">{userdata?.role} • Alba Tiger • Premier League</Typography>
+            <Typography variant="body2" color="gray">{userdata?.role} • {userdata?.team?.[0]?.teamName} • Premier League</Typography>
           </Box>     
           <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
             <Button variant="outlined">Select team ▾</Button>
