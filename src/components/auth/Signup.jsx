@@ -12,6 +12,7 @@ import {
   StepLabel,
   Stack,
   MenuItem,
+  Alert,
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import PeopleIcon from "@mui/icons-material/People";
@@ -63,6 +64,7 @@ const Signup = () => {
     gender: "",
     otp: "",
   });
+  const [showAlert, setShowAlert] = useState(false);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -85,14 +87,23 @@ const Signup = () => {
     }
   }
 
+  const validateStep1 = () => {
+    const requiredFields = ['firstName', 'lastName', 'email', 'mobileNumber', 'password', 'confirmPassword'];
+    return requiredFields.every(field => formData[field] !== '');
+  };
+
   const handleNext = (e) => {
     e.preventDefault();
-    if (step == 2) {
+    if (step === 1) {
+      if (!validateStep1()) {
+        setShowAlert(true);
+        setTimeout(() => setShowAlert(false), 3000);
+        return;
+      }
+      setStep(step + 1);
+    } else if (step === 2) {
       handleSubmit(e);
     }
-    else if (step<3){
-        setStep(step+1);
-      }
   };
 
   const handleBack = () => {
@@ -202,6 +213,16 @@ const Signup = () => {
             </Stepper>
           </Box>
 
+          {showAlert && (
+            <Alert 
+              severity="error" 
+              sx={{ mb: 2 }}
+              onClose={() => setShowAlert(false)}
+            >
+              Please fill all fields before proceeding
+            </Alert>
+          )}
+
           <form onSubmit={handleNext} sx={{ px: { xs: 1, sm: 2, md: 4 } }}>
             {step === 1 && (
               <Stack container spacing={{ xs: 1.5, sm: 2 }}>
@@ -308,13 +329,13 @@ const Signup = () => {
                 <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
                   <TextField
                     select
-                    label="Birth year"
+                    label="Division"
                     name="birthYear"
                     value={formData.birthYear}
                     onChange={handleInputChange}
                     sx={{ width: "50%" }} // This replaces xs={6}
                   >
-                    <MenuItem value="">Select birth year</MenuItem>
+                    <MenuItem value="">Select division</MenuItem>
                     {birth.map((year) => (
                       <MenuItem key={year.key} value={year.key}>
                         {year.key}
@@ -332,8 +353,8 @@ const Signup = () => {
                     sx={{ width: "50%" }} // This replaces xs={6}
                   >
                     <MenuItem value="">Select Player Gender</MenuItem>
-                    <MenuItem value="male">Male</MenuItem>
-                    <MenuItem value="female">Female</MenuItem>
+                    <MenuItem value="Male">Male</MenuItem>
+                    <MenuItem value="Female">Female</MenuItem>
                   </TextField>
                 </Stack>
                 <Stack item xs={12}>
@@ -344,14 +365,16 @@ const Signup = () => {
                     name="teamId"
                     value={formData.teamId}
                     onChange={handleInputChange}
-                    disabled={!formData.club || !formData.birthYear}
+                    disabled={!formData.club || !formData.birthYear || !formData.gender || !formData.leagueId}
                   >
                     <MenuItem value="">Select a team</MenuItem>
                     {teams
                       .filter(
                         (team) =>
                           team.club_id == formData.club &&
-                          team.age === formData.birthYear
+                          team.age === formData.birthYear &&
+                          team.gender === formData.gender &&
+                          team.league_id == formData.leagueId
                       )
                       .map((team) => (
                         <MenuItem key={team._id} value={team._id}>
