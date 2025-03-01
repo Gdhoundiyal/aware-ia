@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Box, Typography, FormControl, InputLabel, Select, MenuItem, Checkbox, FormGroup, FormControlLabel, Card, CardContent } from "@mui/material";
 
-const MatchPreparation = () => {
+const MatchPreparation = ( {nextMatch} ) => {
   const [selectedFixture, setSelectedFixture] = useState("");
   const [fixtureTypes, setFixtureTypes] = useState({
     league: false,
@@ -21,8 +21,8 @@ const MatchPreparation = () => {
     <Card sx={{ width: "100%",borderRadius: 3, boxShadow: 3,}}>
       <CardContent>
         <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-          Next Match Preparation vs FC United  
-            Status as of date: On / Cancelled / Forfeit / Rescheduled
+          Next Match preperation vs {nextMatch.opponentName} {" "}  
+            Status as of date: {nextMatch.status}
         </Typography>
 
 
