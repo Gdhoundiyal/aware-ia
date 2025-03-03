@@ -1,37 +1,40 @@
-import * as React from "react";
-import { DataGrid} from "@mui/x-data-grid";
-import Paper from "@mui/material/Paper";
+import { Typography } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
-
-
-const Table = ({ rows, columns, paginationModel = { page: 0, pageSize: 5 } }) => {
+const Table = ({
+  rows,
+  columns,
+  paginationModel = { page: 0, pageSize: 5 },
+}) => {
   return (
-
-        <DataGrid
-          rows={rows}
-          columns={columns}
-          initialState={{ pagination: { paginationModel } }}
-          pageSizeOptions={[5, 10]}
-          checkboxSelection
-          autoHeight
-          sx={{
-         
-            border: 0,
-            '& .MuiDataGrid-cell': {
-              borderBottom: '1px solid #f0f0f0',
-              whiteSpace: 'nowrap',
-            },
-            '& .MuiDataGrid-columnHeaders': {
-              backgroundColor: '#fafafa',
-              borderBottom: 'none',
-              whiteSpace: 'nowrap',
-            },
-            '& .MuiDataGrid-main': {
-              overflow: 'hidden'
-            }
-          }}
-        />
-
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      initialState={{ pagination: { paginationModel } }}
+      pageSizeOptions={[5, 10]}
+      checkboxSelection
+      autoHeight
+      noRowsOverlay={
+        <Typography variant="body1" sx={{ p: 2 }}>
+          No data available
+        </Typography>
+      }
+      sx={{
+        border: 0,
+        "& .MuiDataGrid-cell": {
+          borderBottom: "1px solid #f0f0f0",
+          whiteSpace: "nowrap",
+        },
+        "& .MuiDataGrid-columnHeaders": {
+          backgroundColor: "#fafafa",
+          borderBottom: "none",
+          whiteSpace: "nowrap",
+        },
+        "& .MuiDataGrid-main": {
+          overflow: "hidden",
+        },
+      }}
+    />
   );
 };
 
