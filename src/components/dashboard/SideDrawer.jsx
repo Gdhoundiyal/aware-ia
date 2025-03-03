@@ -19,9 +19,10 @@ import {
 import { Link, useLocation } from "react-router-dom";
 
 const sidebarItems = [
-  { text: "Overview", icon: <Home />, path: "/dashboard" },
+  { text: "Dashboard", icon: <Home />, path: "/dashboard" },
   { text: "Team", icon: <Group />, path: "/dashboard/teams" },
   { text: "Matches", icon: <CalendarMonth />, path: "/dashboard/matches" },
+  { text: "Standings", icon: <BarChart />, path: "/dashboard/standings" },
   { text: "Analytics", icon: <BarChart />, path: "/dashboard/analytics" },
   { text: "Settings", icon: <Settings />, path: "/dashboard/settings" },
 ];
