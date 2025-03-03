@@ -68,10 +68,22 @@ const Signup = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    
+    if (name === 'mobileNumber') {
+      // Only allow numbers
+      const numbersOnly = value.replace(/[^0-9]/g, '');
+      // Limit length to 14 digits
+      const truncatedValue = numbersOnly.slice(0, 14);
+      setFormData((prev) => ({
+        ...prev,
+        [name]: truncatedValue,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async(e)=>{
@@ -89,7 +101,30 @@ const Signup = () => {
 
   const validateStep1 = () => {
     const requiredFields = ['firstName', 'lastName', 'email', 'mobileNumber', 'password', 'confirmPassword'];
-    return requiredFields.every(field => formData[field] !== '');
+    const isFieldsFilled = requiredFields.every(field => formData[field] !== '');
+    const isMobileValid = formData.mobileNumber.length >= 9 && formData.mobileNumber.length <= 14;
+    const isPasswordValid = formData.password.length >= 8;
+    const isPasswordMatch = formData.password === formData.confirmPassword;
+    
+    if (!isMobileValid) {
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return false;
+    }
+
+    if (!isPasswordValid) {
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return false;
+    }
+
+    if (!isPasswordMatch) {
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return false;
+    }
+    
+    return isFieldsFilled;
   };
 
   const handleNext = (e) => {
@@ -263,7 +298,18 @@ const Signup = () => {
                     name="mobileNumber"
                     value={formData.mobileNumber}
                     onChange={handleInputChange}
-                    placeholder="+1 (555) 555-5555"
+                    placeholder="Enter mobile number"
+                    slotProps={{
+                      inputMode: 'numeric',
+                      pattern: '[0-9]*',
+                    }}
+                    error={formData.mobileNumber !== '' && (formData.mobileNumber.length < 9 || formData.mobileNumber.length > 14)}
+                    helperText={
+                      formData.mobileNumber !== '' && 
+                      (formData.mobileNumber.length < 9 || formData.mobileNumber.length > 14) 
+                        ? 'Mobile number must be between 9 and 14 digits' 
+                        : ''
+                    }
                   />
                 </Stack>
                 <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
@@ -275,6 +321,12 @@ const Signup = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                     placeholder="Min. 8 characters"
+                    error={formData.password !== '' && formData.password.length < 8}
+                    helperText={
+                      formData.password !== '' && formData.password.length < 8
+                        ? 'Password must be at least 8 characters'
+                        : ''
+                    }
                   />
 
                   <TextField
@@ -285,6 +337,12 @@ const Signup = () => {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
+                    error={formData.confirmPassword !== '' && formData.password !== formData.confirmPassword}
+                    helperText={
+                      formData.confirmPassword !== '' && formData.password !== formData.confirmPassword
+                        ? 'Passwords do not match'
+                        : ''
+                    }
                   />
                 </Stack>
               </Stack>
@@ -300,9 +358,23 @@ const Signup = () => {
                     name="leagueId"
                     value={formData.leagueId}
                     onChange={handleInputChange}
+                    slotProps={{
+                      select: {
+                        MenuProps: {
+                          PaperProps: {
+                            sx: {
+                              maxHeight: 200,
+                              overflowY: 'auto'
+                            }
+                          }
+                        }
+                      }
+                    }}
                   >
                     <MenuItem value="">Select a league</MenuItem>
-                    {league.map((leagueItem) => (
+                    {league
+                      .sort((a, b) => a.league_title.localeCompare(b.league_title))
+                      .map((leagueItem) => (
                       <MenuItem key={leagueItem._id} value={leagueItem._id}>
                         {leagueItem.league_title}
                       </MenuItem>
@@ -317,9 +389,23 @@ const Signup = () => {
                     name="club"
                     value={formData.club}
                     onChange={handleInputChange}
+                    slotProps={{
+                      select: {
+                        MenuProps: {
+                          PaperProps: {
+                            sx: {
+                              maxHeight: 200,
+                              overflowY: 'auto'
+                            }
+                          }
+                        }
+                      }
+                    }}
                   >
                     <MenuItem value="">Select a club</MenuItem>
-                    {clubs.map((clubItem) => (
+                    {clubs
+                      .sort((a, b) => a.club_name.localeCompare(b.club_name))
+                      .map((clubItem) => (
                       <MenuItem key={clubItem._id} value={clubItem._id}>
                         {clubItem.club_name}
                       </MenuItem>
@@ -333,10 +419,24 @@ const Signup = () => {
                     name="birthYear"
                     value={formData.birthYear}
                     onChange={handleInputChange}
-                    sx={{ width: "50%" }} // This replaces xs={6}
+                    sx={{ width: "50%" }}
+                    slotProps={{
+                      select: {
+                        MenuProps: {
+                          PaperProps: {
+                            sx: {
+                              maxHeight: 200,
+                              overflowY: 'auto'
+                            }
+                          }
+                        }
+                      }
+                    }}
                   >
                     <MenuItem value="">Select division</MenuItem>
-                    {birth.map((year) => (
+                    {birth
+                      .sort((a, b) => a.key.localeCompare(b.key))
+                      .map((year) => (
                       <MenuItem key={year.key} value={year.key}>
                         {year.key}
                       </MenuItem>
@@ -350,11 +450,23 @@ const Signup = () => {
                     name="gender"
                     value={formData.gender}
                     onChange={handleInputChange}
-                    sx={{ width: "50%" }} // This replaces xs={6}
+                    sx={{ width: "50%" }}
+                    slotProps={{
+                      select: {
+                        MenuProps: {
+                          PaperProps: {
+                            sx: {
+                              maxHeight: 200,
+                              overflowY: 'auto'
+                            }
+                          }
+                        }
+                      }
+                    }}
                   >
                     <MenuItem value="">Select Player Gender</MenuItem>
-                    <MenuItem value="Male">Male</MenuItem>
                     <MenuItem value="Female">Female</MenuItem>
+                    <MenuItem value="Male">Male</MenuItem>
                   </TextField>
                 </Stack>
                 <Stack item xs={12}>
@@ -366,6 +478,18 @@ const Signup = () => {
                     value={formData.teamId}
                     onChange={handleInputChange}
                     disabled={!formData.club || !formData.birthYear || !formData.gender || !formData.leagueId}
+                    slotProps={{
+                      select: {
+                        MenuProps: {
+                          PaperProps: {
+                            sx: {
+                              maxHeight: 200,
+                              overflowY: 'auto'
+                            }
+                          }
+                        }
+                      }
+                    }}
                   >
                     <MenuItem value="">Select a team</MenuItem>
                     {teams
@@ -376,6 +500,7 @@ const Signup = () => {
                           team.gender === formData.gender &&
                           team.league_id == formData.leagueId
                       )
+                      .sort((a, b) => a.team_name.localeCompare(b.team_name))
                       .map((team) => (
                         <MenuItem key={team._id} value={team._id}>
                           {team.team_name}

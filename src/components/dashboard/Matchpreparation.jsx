@@ -1,63 +1,116 @@
-import React, { useState } from "react";
-import { Box, Typography, FormControl, InputLabel, Select, MenuItem, Checkbox, FormGroup, FormControlLabel, Card, CardContent } from "@mui/material";
+"use client"
 
-const MatchPreparation = ( {nextMatch} ) => {
-  const [selectedFixture, setSelectedFixture] = useState("");
-  const [fixtureTypes, setFixtureTypes] = useState({
-    league: false,
-    cup: false,
-    tournament: false,
-  });
+import { useState } from "react"
+import {
+  Box,
+  Typography,
+  Card,
+  CardContent,
+  Radio,
+  RadioGroup,
+  FormControlLabel,
+  Divider,
+  Grid,
+  Paper,
+  useTheme,
+} from "@mui/material"
 
-  const handleSelectChange = (event) => {
-    setSelectedFixture(event.target.value);
-  };
+const MatchPreparation = ({ nextMatch }) => {
+  const theme = useTheme()
+  const [matchStatus, setMatchStatus] = useState("On")
+  const [fixtureType, setFixtureType] = useState("League")
 
-  const handleCheckboxChange = (event) => {
-    setFixtureTypes({ ...fixtureTypes, [event.target.name]: event.target.checked });
-  };
+  const formatDate = (dateString) => {
+    if (!dateString) return ""
+    try {
+      const date = new Date(dateString)
+      return date.toLocaleDateString("en-US", { month: "2-digit", day: "2-digit", year: "numeric" })
+    } catch (error) {
+      return ""
+    }
+  }
+
+  const formatDateTime = (dateString) => {
+    if (!dateString) return "TBD"
+    try {
+      const date = new Date(dateString)
+      return date.toLocaleString("en-US", {
+        month: "short",
+        day: "numeric",
+        year: "numeric",
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      })
+    } catch (error) {
+      return "TBD"
+    }
+  }
+
+  const currentDate = formatDate(new Date())
+
+  const handleMatchStatusChange = (event) => {
+    setMatchStatus(event.target.value)
+  }
+
+  const handleFixtureTypeChange = (event) => {
+    setFixtureType(event.target.value)
+  }
 
   return (
-    <Card sx={{ width: "100%",borderRadius: 3, boxShadow: 3,}}>
-      <CardContent>
-        <Typography variant="h6" sx={{ fontWeight: "bold" }}>
-          Next Match preperation vs {nextMatch.opponentName} {" "}  
-            Status as of date: {nextMatch.status}
-        </Typography>
+    <Card sx={{ width: "100%", borderRadius: 2, boxShadow: 3, mb: 3 }}>
+      <CardContent sx={{ p: 3 }}>
+        <Grid container spacing={3}>
+          <Grid item xs={12} md={4}>
+            <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
+              Next Match Prep
+            </Typography>
+            <Typography variant="h6" sx={{ color: "text.secondary", mb: 2 }}>
+              vs {nextMatch?.opponentName || "No upcoming matches found"}
+            </Typography>
+            <Paper elevation={0} sx={{ p: 2, bgcolor: theme.palette.grey[100], borderRadius: 2 }}>
+              <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>
+                Status as of: {currentDate}
+              </Typography>
+              <Typography variant="body2" sx={{ fontWeight: "medium" }}>
+                <strong>Location:</strong> {nextMatch.match_location || "Not Found"}
+              </Typography>
+              <Typography variant="body2" sx={{ fontWeight: "medium" }}>
+                <strong>Date/Time:</strong> {nextMatch.match_time ? formatDateTime(nextMatch.match_time) : "Not Found"}
+              </Typography>
+            </Paper>
+          </Grid>
 
+          <Grid item xs={12} md={8}>
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+                Match Status
+              </Typography>
+              <RadioGroup row value={matchStatus} onChange={handleMatchStatusChange}>
+                <FormControlLabel value="On" control={<Radio />} label="On" />
+                <FormControlLabel value="Canceled/TBS" control={<Radio />} label="Canceled/TBS" />
+                <FormControlLabel value="Forfeit" control={<Radio />} label="Forfeit" />
+              </RadioGroup>
+            </Box>
 
-        {/* <FormGroup row sx={{ gap: 2 }}>
-        <Typography variant="subtitle1" sx={{ mt: 1, fontWeight: "bold" }}>
-          Fixture type:
-        </Typography>
-          <FormControlLabel
-            control={<Checkbox checked={fixtureTypes.league} onChange={handleCheckboxChange} name="league" />}
-            label="League"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={fixtureTypes.cup} onChange={handleCheckboxChange} name="cup" />}
-            label="Cup"
-          />
-          <FormControlLabel
-            control={<Checkbox checked={fixtureTypes.tournament} onChange={handleCheckboxChange} name="tournament" />}
-            label="Tournament"
-          />
-        </FormGroup> */}
+            <Divider sx={{ my: 2 }} />
 
-        <Box sx={{ display: "flex", alignItems: "center", gap: 2,paddingTop:"10px" }}>
-            <Typography sx={{ fontWeight: "bold", color: "#64748B" }}>Fixture Type:</Typography>
-            <FormControl sx={{ minWidth: 160 }} size="small">
-                <Select value={selectedFixture} onChange={handleSelectChange} displayEmpty>
-                <MenuItem value="" disabled>Select fixture type</MenuItem>
-                <MenuItem value="League">League</MenuItem>
-                <MenuItem value="Cup">Cup</MenuItem>
-                <MenuItem value="Tournament">Tournament</MenuItem>
-                </Select>
-            </FormControl>
-        </Box>
+            <Box>
+              <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
+                Fixture Type
+              </Typography>
+              <RadioGroup row value={fixtureType} onChange={handleFixtureTypeChange}>
+                <FormControlLabel value="League" control={<Radio />} label="League" />
+                <FormControlLabel value="Cup" control={<Radio />} label="Cup" />
+                <FormControlLabel value="Tournament" control={<Radio />} label="Tournament" />
+              </RadioGroup>
+            </Box>
+          </Grid>
+        </Grid>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default MatchPreparation;
+export default MatchPreparation
+

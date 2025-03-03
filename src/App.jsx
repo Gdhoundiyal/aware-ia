@@ -1,13 +1,14 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Signup from "./components/auth/signup";
+import Signup from "./components/auth/Signup";
 import DashboardLayout from "./components/dashboard/DashBoard";
-import Teams from "./components/dashboard/Teams";
+import Teams from "./pages/Teams";
 import Matches from "./components/dashboard/Matches";
 import Analytics from "./components/dashboard/Analytics";
 import { Settings } from "./components/dashboard/Settings";
 import OverView from "./components/dashboard/OverView";
 import AuthGuard from "./Authguard";
 import Login from "./components/auth/Login";
+import Standings from "./components/dashboard/Standings";
 
 function App() {
   return (
@@ -47,8 +48,9 @@ function App() {
           }
         >
           <Route path="" element={<OverView />} />
-          <Route path="teams" element={<Teams />} />
+          <Route path="teams" element={<Teams/>} />
           <Route path="matches" element={<Matches />} />
+          <Route path="standings" element={<Standings/>} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="settings" element={<Settings />} />
         </Route>
