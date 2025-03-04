@@ -28,6 +28,9 @@ export default function CustomNavbar({ onMenuClick }) {
     }
   };
 
+  const userleague = JSON.parse(localStorage.getItem("user"))
+  const leagueTitle = userleague?.league?.league_title;
+  console.log("leagueeeee",leagueTitle )
   const menuId = "primary-account-menu";
   const renderMenu = (
     <Menu
@@ -76,7 +79,7 @@ export default function CustomNavbar({ onMenuClick }) {
             {userdata?.firstName + " " + userdata?.lastName}
           </Typography>
           <Typography variant="body2" color="gray" sx={{ fontSize: { xs: "0.75rem", sm: "0.875rem" } }}>
-            {userdata?.role} • {userdata?.team?.[0]?.teamName} • Premier League
+            {userdata?.role} • {userdata?.team?.[0]?.teamName} • {leagueTitle}
           </Typography>
         </Box>
         <Box sx={{ display: "flex", alignItems: "center", gap: { xs: 1, sm: 2 }, order: { xs: 2, sm: 2 }, width: { xs: "100%", sm: "auto" }, justifyContent: { xs: "space-between", sm: "flex-end" } }}>
