@@ -217,7 +217,7 @@ const Signup = () => {
               Create your account
             </Typography>
             <Typography variant="body1" color="text.secondary" mt={1}>
-              { step === 3 ?   ("Verify you account") : ("Get started with your free account")   } 
+              { step === 3 ?   ("Verify your account") : ("Get started with your free account and connect to your EDP and WYSL team's")   } 
             </Typography>
           </Box>
 
@@ -585,6 +585,7 @@ const Signup = () => {
                   bgcolor: "#1e40af",
                   mb: "10px",
                   width: { xs: "100%", sm: step === 1 ? "100%" : "auto" },
+                  textTransform: 'none'
                 }}
               >
                 {step === 1

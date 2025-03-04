@@ -60,7 +60,7 @@ const MatchWeather = ({ weather }) => {
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box display="flex" alignItems="center" gap={1}>
             <PlaceIcon fontSize="small" />
-            <Typography variant="subtitle1" fontWeight="medium">
+            <Typography variant="subtitle2" fontWeight="medium">
               {weather?.location || 'N/A'}
             </Typography>
           </Box>

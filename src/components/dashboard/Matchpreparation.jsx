@@ -13,6 +13,8 @@ import {
   Grid,
   Paper,
   useTheme,
+  Stack,
+  Chip
 } from "@mui/material"
 
 const MatchPreparation = ({ nextMatch }) => {
@@ -90,6 +92,7 @@ const MatchPreparation = ({ nextMatch }) => {
                 <FormControlLabel value="On" control={<Radio />} label="On" />
                 <FormControlLabel value="Canceled/TBS" control={<Radio />} label="Canceled/TBS" />
                 <FormControlLabel value="Forfeit" control={<Radio />} label="Forfeit" />
+                <FormControlLabel value="Rescheduled" control={<Radio />} label="Rescheduled" />
               </RadioGroup>
             </Box>
 
@@ -99,11 +102,22 @@ const MatchPreparation = ({ nextMatch }) => {
               <Typography variant="subtitle1" sx={{ fontWeight: "bold", mb: 1 }}>
                 Fixture Type
               </Typography>
-              <RadioGroup row value={fixtureType} onChange={handleFixtureTypeChange}>
-                <FormControlLabel value="League" control={<Radio />} label="League" />
-                <FormControlLabel value="Cup" control={<Radio />} label="Cup" />
-                <FormControlLabel value="Tournament" control={<Radio />} label="Tournament" />
-              </RadioGroup>
+              <Stack direction="row" spacing={1}>
+                {["League", "Cup", "Tournament"].map((type) => (
+                  <Chip
+                    key={type}
+                    label={type}
+                    variant={(nextMatch?.fixtureType || "League") === type ? "filled" : "outlined"}
+                    color={(nextMatch?.fixtureType || "League") === type ? "primary" : "default"}
+                    sx={{
+                      bgcolor: (nextMatch?.fixtureType || "League") === type ? theme.palette.primary.main : "transparent",
+                      color: (nextMatch?.fixtureType || "League") === type ? "white" : "text.primary",
+                      cursor: "default",
+                      '&:hover': { bgcolor: (nextMatch?.fixtureType || "League") === type ? theme.palette.primary.main : "transparent" }
+                    }}
+                  />
+                ))}
+              </Stack>
             </Box>
           </Grid>
         </Grid>
