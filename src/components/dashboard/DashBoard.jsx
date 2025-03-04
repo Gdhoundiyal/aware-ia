@@ -16,7 +16,7 @@ export default function DashboardLayout() {
       display: "flex", 
       minHeight: "100vh",
       maxWidth: "100vw",
-      overflow: "hidden" // Prevent body scroll when drawer is open
+      overflow: "hidden" 
     }}>
       <CssBaseline />
       
@@ -35,6 +35,7 @@ export default function DashboardLayout() {
           display: "flex",
           flexDirection: "column",
           overflow: "hidden",
+          height: "100vh",
           maxWidth: "100%"
         }}
       >
@@ -47,7 +48,7 @@ export default function DashboardLayout() {
           p: { xs: 1, sm: 2, md: 3 },
           backgroundColor: "#f5f5f5",
           overflow: "auto",
-          height: "calc(100vh - 64px)", // Subtract navbar height
+          height: "calc(100vh - 64px)",
           '&::-webkit-scrollbar': {
             width: '0.4em'
           },

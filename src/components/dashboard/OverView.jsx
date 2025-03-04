@@ -27,9 +27,9 @@ const Overview = () => {
   const checklistData = {
     completedTasks: ["Print game lineup card"],
     refereeFees: [
-      { role: "MR", amount: 100 },
+      { role: "MR", amount: "100 / 2 =  $50" },
       { role: "AR1", amount: 34 },
-      { role: "AR2", amount: 50 },
+      { role: "AR2", amount: 20 },
     ],
     pendingTasks: ["Touch base with opponent", "Align with co-coaches/manager"],
   };

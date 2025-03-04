@@ -45,7 +45,7 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }) {
       <Box>
         <Box sx={{ p: 2, display: "flex", alignItems: "center" }}>
           <Typography variant="h6" fontWeight="bold">
-            ⚽ AwareIA
+            ⚽ Awareia
           </Typography>
         </Box>
         <List>
