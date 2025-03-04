@@ -12,7 +12,6 @@ import ThunderstormIcon from "@mui/icons-material/Thunderstorm"
 import WbCloudyIcon from "@mui/icons-material/WbCloudy"
 
 const MatchWeather = ({ weather }) => {
-  console.log("weather",weather)
   const theme = useTheme()
 
   const formatDate = (dateString) => {

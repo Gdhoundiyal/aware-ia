@@ -12,12 +12,21 @@ import axiosInstance from "../../axios/axiosInstance";
 const Overview = () => {
   const [nextmatch, setNextMatch] = useState({});
   const [weather, setWeather] = useState({});
+  const [teamData,setTeamData] = useState([])
 
-  const teamData = {
+  const teamsData = {
     available: 16,
     injured: 3,
     suspended: 1,
     players: [
+      { name: "John Smith", status: "available" },
+      { name: "John Smith", status: "available" },
+      { name: "John Smith", status: "available" },
+      { name: "John Smith", status: "available" },
+      { name: "John Smith", status: "available" },
+      { name: "John Smith", status: "available" },
+      { name: "John Smith", status: "available" },
+      { name: "John Smith", status: "available" },
       { name: "John Smith", status: "available" },
       { name: "Mike Johnson", status: "suspended" },
       { name: "David Wilson", status: "suspended" },
@@ -75,9 +84,38 @@ const Overview = () => {
       }
     };
 
+    const teamStatus = async()=>{
+      try {
+        const userdata = localStorage.getItem("user");
+        if (userdata) {
+          const parsedData = JSON.parse(userdata);
+          const teamId = parsedData?.team?.[0]?.teamId;
+
+          const res = await axiosInstance(`/players/team/${teamId}`, {
+            headers:{
+              'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
+            }
+          })
+         console.log("res.data",res.data)
+          setTeamData(res.data)
+         
+          
+        } 
+      } catch (error) {
+        console.log(error)
+      }
+    }
+
+
     apiCall();
     weatherApi();
+    teamStatus();
   }, []);
+
+
+  useEffect(()=>{
+    console.log("teamData",teamData)
+  },[teamData])
   return (
     <Stack spacing={3}>
       <Box>
@@ -86,7 +124,7 @@ const Overview = () => {
 
       <Box display="flex" gap={2} sx={{ flexWrap: "wrap" }}>
         <MatchWeather weather={weather} />
-        <TeamStatus {...teamData} />
+        <TeamStatus teamData={teamData} {...teamsData} />
         <PreMatchChecklist {...checklistData} />
       </Box>
       <Teams />
