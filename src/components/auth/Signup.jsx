@@ -57,8 +57,9 @@ const Signup = () => {
     mobileNumber: "",
     password: "",
     confirmPassword: "",
-    leagueId : "",
+    leagueId: "",
     teamId: "",
+    role: "",
     club: "",
     birthYear: "",
     gender: "",
@@ -68,10 +69,10 @@ const Signup = () => {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    
-    if (name === 'mobileNumber') {
+
+    if (name === "mobileNumber") {
       // Only allow numbers
-      const numbersOnly = value.replace(/[^0-9]/g, '');
+      const numbersOnly = value.replace(/[^0-9]/g, "");
       // Limit length to 14 digits
       const truncatedValue = numbersOnly.slice(0, 14);
       setFormData((prev) => ({
@@ -86,26 +87,35 @@ const Signup = () => {
     }
   };
 
-  const handleSubmit = async(e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("formdata",formData)
+    console.log("formdata", formData);
     try {
       const res = await axiosInstance.post("/coach", formData);
-      console.log("res",res)
+      console.log("res", res);
       setStep(step + 1);
     } catch (error) {
       console.error("Error registering coach:", error);
-    
     }
-  }
+  };
 
   const validateStep1 = () => {
-    const requiredFields = ['firstName', 'lastName', 'email', 'mobileNumber', 'password', 'confirmPassword'];
-    const isFieldsFilled = requiredFields.every(field => formData[field] !== '');
-    const isMobileValid = formData.mobileNumber.length >= 9 && formData.mobileNumber.length <= 14;
+    const requiredFields = [
+      "firstName",
+      "lastName",
+      "email",
+      "mobileNumber",
+      "password",
+      "confirmPassword",
+    ];
+    const isFieldsFilled = requiredFields.every(
+      (field) => formData[field] !== ""
+    );
+    const isMobileValid =
+      formData.mobileNumber.length >= 9 && formData.mobileNumber.length <= 14;
     const isPasswordValid = formData.password.length >= 8;
     const isPasswordMatch = formData.password === formData.confirmPassword;
-    
+
     if (!isMobileValid) {
       setShowAlert(true);
       setTimeout(() => setShowAlert(false), 3000);
@@ -123,7 +133,7 @@ const Signup = () => {
       setTimeout(() => setShowAlert(false), 3000);
       return false;
     }
-    
+
     return isFieldsFilled;
   };
 
@@ -217,7 +227,9 @@ const Signup = () => {
               Create your account
             </Typography>
             <Typography variant="body1" color="text.secondary" mt={1}>
-              { step === 3 ?   ("Verify your account") : ("Get started with your free account and connect to your EDP and WYSL team's")   } 
+              {step === 3
+                ? "Verify your account"
+                : "Get started with your free account and connect to your EDP and WYSL team(s)"}
             </Typography>
           </Box>
 
@@ -249,8 +261,8 @@ const Signup = () => {
           </Box>
 
           {showAlert && (
-            <Alert 
-              severity="error" 
+            <Alert
+              severity="error"
               sx={{ mb: 2 }}
               onClose={() => setShowAlert(false)}
             >
@@ -300,15 +312,20 @@ const Signup = () => {
                     onChange={handleInputChange}
                     placeholder="Enter mobile number"
                     slotProps={{
-                      inputMode: 'numeric',
-                      pattern: '[0-9]*',
+                      inputMode: "numeric",
+                      pattern: "[0-9]*",
                     }}
-                    error={formData.mobileNumber !== '' && (formData.mobileNumber.length < 9 || formData.mobileNumber.length > 14)}
+                    error={
+                      formData.mobileNumber !== "" &&
+                      (formData.mobileNumber.length < 9 ||
+                        formData.mobileNumber.length > 14)
+                    }
                     helperText={
-                      formData.mobileNumber !== '' && 
-                      (formData.mobileNumber.length < 9 || formData.mobileNumber.length > 14) 
-                        ? 'Mobile number must be between 9 and 14 digits' 
-                        : ''
+                      formData.mobileNumber !== "" &&
+                      (formData.mobileNumber.length < 9 ||
+                        formData.mobileNumber.length > 14)
+                        ? "Mobile number must be between 9 and 14 digits"
+                        : ""
                     }
                   />
                 </Stack>
@@ -321,11 +338,13 @@ const Signup = () => {
                     value={formData.password}
                     onChange={handleInputChange}
                     placeholder="Min. 8 characters"
-                    error={formData.password !== '' && formData.password.length < 8}
+                    error={
+                      formData.password !== "" && formData.password.length < 8
+                    }
                     helperText={
-                      formData.password !== '' && formData.password.length < 8
-                        ? 'Password must be at least 8 characters'
-                        : ''
+                      formData.password !== "" && formData.password.length < 8
+                        ? "Password must be at least 8 characters"
+                        : ""
                     }
                   />
 
@@ -337,11 +356,15 @@ const Signup = () => {
                     value={formData.confirmPassword}
                     onChange={handleInputChange}
                     placeholder="Confirm your password"
-                    error={formData.confirmPassword !== '' && formData.password !== formData.confirmPassword}
+                    error={
+                      formData.confirmPassword !== "" &&
+                      formData.password !== formData.confirmPassword
+                    }
                     helperText={
-                      formData.confirmPassword !== '' && formData.password !== formData.confirmPassword
-                        ? 'Passwords do not match'
-                        : ''
+                      formData.confirmPassword !== "" &&
+                      formData.password !== formData.confirmPassword
+                        ? "Passwords do not match"
+                        : ""
                     }
                   />
                 </Stack>
@@ -364,21 +387,23 @@ const Signup = () => {
                           PaperProps: {
                             sx: {
                               maxHeight: 200,
-                              overflowY: 'auto'
-                            }
-                          }
-                        }
-                      }
+                              overflowY: "auto",
+                            },
+                          },
+                        },
+                      },
                     }}
                   >
                     <MenuItem value="">Select a league</MenuItem>
                     {league
-                      .sort((a, b) => a.league_title.localeCompare(b.league_title))
+                      .sort((a, b) =>
+                        a.league_title.localeCompare(b.league_title)
+                      )
                       .map((leagueItem) => (
-                      <MenuItem key={leagueItem._id} value={leagueItem._id}>
-                        {leagueItem.league_title}
-                      </MenuItem>
-                    ))}
+                        <MenuItem key={leagueItem._id} value={leagueItem._id}>
+                          {leagueItem.league_title}
+                        </MenuItem>
+                      ))}
                   </TextField>
                 </Stack>
                 <Stack item xs={12}>
@@ -395,21 +420,46 @@ const Signup = () => {
                           PaperProps: {
                             sx: {
                               maxHeight: 200,
-                              overflowY: 'auto'
-                            }
-                          }
-                        }
-                      }
+                              overflowY: "auto",
+                            },
+                          },
+                        },
+                      },
                     }}
                   >
                     <MenuItem value="">Select a club</MenuItem>
                     {clubs
                       .sort((a, b) => a.club_name.localeCompare(b.club_name))
                       .map((clubItem) => (
-                      <MenuItem key={clubItem._id} value={clubItem._id}>
-                        {clubItem.club_name}
-                      </MenuItem>
-                    ))}
+                        <MenuItem key={clubItem._id} value={clubItem._id}>
+                          {clubItem.club_name}
+                        </MenuItem>
+                      ))}
+                  </TextField>
+                </Stack>
+                <Stack item xs={12}>
+                  <TextField
+                    select
+                    fullWidth
+                    label="My Role"
+                    name="role"
+                    value={formData.role}
+                    onChange={handleInputChange}
+                    slotProps={{
+                      select: {
+                        MenuProps: {
+                          PaperProps: {
+                            sx: {
+                              maxHeight: 200,
+                              overflowY: "auto",
+                            },
+                          },
+                        },
+                      },
+                    }}
+                  >
+                    <MenuItem value="">Select your role</MenuItem>
+                    <MenuItem value="Head Coach">Head Coach</MenuItem>
                   </TextField>
                 </Stack>
                 <Stack direction="row" spacing={2} sx={{ width: "100%" }}>
@@ -426,21 +476,21 @@ const Signup = () => {
                           PaperProps: {
                             sx: {
                               maxHeight: 200,
-                              overflowY: 'auto'
-                            }
-                          }
-                        }
-                      }
+                              overflowY: "auto",
+                            },
+                          },
+                        },
+                      },
                     }}
                   >
                     <MenuItem value="">Select division</MenuItem>
                     {birth
                       .sort((a, b) => a.key.localeCompare(b.key))
                       .map((year) => (
-                      <MenuItem key={year.key} value={year.key}>
-                        {year.key}
-                      </MenuItem>
-                    ))}
+                        <MenuItem key={year.key} value={year.key}>
+                          {year.key}
+                        </MenuItem>
+                      ))}
                   </TextField>
 
                   <TextField
@@ -457,11 +507,11 @@ const Signup = () => {
                           PaperProps: {
                             sx: {
                               maxHeight: 200,
-                              overflowY: 'auto'
-                            }
-                          }
-                        }
-                      }
+                              overflowY: "auto",
+                            },
+                          },
+                        },
+                      },
                     }}
                   >
                     <MenuItem value="">Select Player Gender</MenuItem>
@@ -477,18 +527,23 @@ const Signup = () => {
                     name="teamId"
                     value={formData.teamId}
                     onChange={handleInputChange}
-                    disabled={!formData.club || !formData.birthYear || !formData.gender || !formData.leagueId}
+                    disabled={
+                      !formData.club ||
+                      !formData.birthYear ||
+                      !formData.gender ||
+                      !formData.leagueId
+                    }
                     slotProps={{
                       select: {
                         MenuProps: {
                           PaperProps: {
                             sx: {
                               maxHeight: 200,
-                              overflowY: 'auto'
-                            }
-                          }
-                        }
-                      }
+                              overflowY: "auto",
+                            },
+                          },
+                        },
+                      },
                     }}
                   >
                     <MenuItem value="">Select a team</MenuItem>
@@ -585,7 +640,7 @@ const Signup = () => {
                   bgcolor: "#1e40af",
                   mb: "10px",
                   width: { xs: "100%", sm: step === 1 ? "100%" : "auto" },
-                  textTransform: 'none'
+                  textTransform: "none",
                 }}
               >
                 {step === 1
