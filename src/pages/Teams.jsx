@@ -1,16 +1,14 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import { Box, Typography, Chip, Menu, MenuItem, IconButton } from "@mui/material"
+import { Box, Typography, Chip, IconButton, Select, MenuItem, FormControl } from "@mui/material"
 import Table from "../components/table/Table"
 import axiosInstance from "../axios/axiosInstance"
 import MoreVertIcon from "@mui/icons-material/MoreVert"
 
 const Teams = () => {
   const [teamData, setTeamData] = useState([])
-  const [anchorEl, setAnchorEl] = useState(null)
   const [selectedPlayer, setSelectedPlayer] = useState(null)
-
 
   const teamStatus = async () => {
     try {
@@ -33,37 +31,27 @@ const Teams = () => {
   }
 
   useEffect(() => {
-  
     teamStatus()
   }, [])
 
-  const handleStatusClick = (event, playerId) => {
-    setAnchorEl(event.currentTarget)
-    setSelectedPlayer(playerId)
-    console.log("ereree",playerId)
-  }
+  const handleStatusChange = async (event, playerId) => {
+    const newStatus = event.target.value;
+    setSelectedPlayer(playerId); // Set the selected player ID
 
-  const handleClose = () => {
-    setAnchorEl(null)
-    setSelectedPlayer(null)
-  }
-
-  const handleStatusChange = async (newStatus) => {
     try {
-      
       await axiosInstance.post('/players/changestatus', {
         status: newStatus,
-        playerId: selectedPlayer,
-      }, {  headers: {
-        Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
-      }});
+        playerId: playerId,
+      }, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+        }
+      });
 
       // Update the local state
-      teamStatus()
+      teamStatus();
     } catch (error) {
       console.error("Error updating status:", error);
-    } finally {
-      handleClose();
     }
   }
 
@@ -90,22 +78,32 @@ const Teams = () => {
       headerName: "Status",
       width: 180,
       renderCell: (params) => {
-        const statusColor = getStatusColor(params.value)
+        const statusColor = getStatusColor(params.value);
         return (
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Chip
-              label={params.value.charAt(0).toUpperCase() + params.value.slice(1).replace("-", " ")}
-              sx={{
-                backgroundColor: statusColor.bg,
-                color: statusColor.color,
-                fontWeight: 500,
-                borderRadius: "16px",
-                "& .MuiChip-label": { px: 2 },
-              }}
-            />
-            <IconButton size="small" onClick={(e) => handleStatusClick(e, params.row.id)} sx={{ ml: 1 }}>
-              <MoreVertIcon fontSize="small" />
-            </IconButton>
+          <Box sx={{ display: "flex", alignItems: "center", height: '100%',justifyContent:"space-between" }}>
+            <FormControl variant="filled" sx={{ ml: 1, minWidth: 120, bgcolor: "transparent" }}>
+              <Select
+                value={params.value}
+                onChange={(e) => handleStatusChange(e, params.row.id)}
+                displayEmpty
+                inputProps={{ 'aria-label': 'Without label' }}
+                sx={{
+                  // marginLeft:"20px",
+                  paddingBottom:"15px",
+                  lineHeight:"2.4375em",
+                  bgcolor: 'transparent',
+                  '& .MuiSelect-select': {
+                    bgcolor: 'transparent',
+                  },
+                }}
+              >
+                {["available", "not-available", "suspended", "injured"].map((status) => (
+                  <MenuItem key={status} value={status}>
+                    {status.charAt(0).toUpperCase() + status.slice(1).replace("-", " ")}
+                  </MenuItem>
+                ))}
+              </Select>
+            </FormControl>
           </Box>
         )
       },
@@ -152,7 +150,7 @@ const Teams = () => {
     },
   ]
 
-  const rows = teamData.map((player, index) => ({
+  const rows = teamData.map((player) => ({
     status: player.status || "available",
     name: player.name,
     position: player.position,
@@ -171,7 +169,7 @@ const Teams = () => {
 
   return (
     <Box sx={{ p: 3 }}>
-      <Typography variant="h4" sx={{ mb: 1 }}>
+      <Typography variant="h5" sx={{ mb: 1 }}>
         Player Assessment Table: {soccerYear}
       </Typography>
       <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -179,47 +177,6 @@ const Teams = () => {
       </Typography>
 
       <Table rows={rows} columns={columns} paginationModel={{ page: 0, pageSize: 10 }} />
-
-      <Menu
-        anchorEl={anchorEl}
-        open={Boolean(anchorEl)}
-        onClose={handleClose}
-        PaperProps={{
-          elevation: 1,
-          sx: {
-            minWidth: 180,
-            boxShadow: "0px 2px 8px rgba(0,0,0,0.1)",
-            borderRadius: "8px",
-          },
-        }}
-      >
-        {["available", "not-available", "suspended", "injured"].map((status) => {
-          const statusColor = getStatusColor(status)
-          return (
-            <MenuItem
-              key={status}
-              onClick={() => handleStatusChange(status)}
-              sx={{
-                py: 1,
-                "&:hover": { backgroundColor: statusColor.bg + "80" },
-              }}
-            >
-              <Chip
-                label={status.charAt(0).toUpperCase() + status.slice(1).replace("-", " ")}
-                sx={{
-                  backgroundColor: statusColor.bg,
-                  color: statusColor.color,
-                  fontWeight: 500,
-                  width: "100%",
-                  justifyContent: "flex-start",
-                  borderRadius: "16px",
-                  "& .MuiChip-label": { px: 2 },
-                }}
-              />
-            </MenuItem>
-          )
-        })}
-      </Menu>
     </Box>
   )
 }
