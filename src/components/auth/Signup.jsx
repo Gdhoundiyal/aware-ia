@@ -92,7 +92,6 @@ const Signup = () => {
     console.log("formdata", formData);
     try {
       const res = await axiosInstance.post("/coach", formData);
-      console.log("res", res);
       setStep(step + 1);
     } catch (error) {
       console.error("Error registering coach:", error);

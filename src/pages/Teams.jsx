@@ -22,7 +22,6 @@ const Teams = () => {
             Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
           },
         })
-        console.log("res.data", res.data)
         setTeamData(res.data)
       }
     } catch (error) {

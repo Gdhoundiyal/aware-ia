@@ -12,8 +12,8 @@ import AccessTimeFilledOutlinedIcon from "@mui/icons-material/AccessTimeFilledOu
 
 export const SubscriptionBilling = () => {
     return (
-        <Box sx={{ p: 1 }}>
-            <Paper sx={{ p: 3, mb: 3, boxShadow: "none", border: "1px solid lightgray" }}>
+        <Box sx={{ p: 3 }}>
+            <Paper sx={{ p: 3, mb: 3, border: "1px solid lightgray" }}>
                 <Typography variant="h6" fontWeight="bold">
                     Subscription & Billing
                 </Typography>

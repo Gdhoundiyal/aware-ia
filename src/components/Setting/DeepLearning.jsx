@@ -6,6 +6,7 @@ import {
     TextField,
 } from "@mui/material";
 import { useState } from "react";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 export const DeepLearning = () => {
     const [files, setFiles] = useState([]);
@@ -26,8 +27,8 @@ export const DeepLearning = () => {
     };
 
     return (
-        <Box p={1}>
-            <Box sx={{ p: 2, border: "1px solid lightgray", borderRadius: "5px" }}>
+        <Box p={3}>
+            <Box component={Paper} sx={{ p: 2, border: "1px solid lightgray", borderRadius: "5px" }}>
                 <Typography variant="h6" fontWeight="bold">
                     Deep Learning
                 </Typography>
@@ -37,7 +38,7 @@ export const DeepLearning = () => {
 
                 <Paper
                     sx={{
-                        p: 4,
+                        p: 2,
                         border: "2px dashed #ccc",
                         textAlign: "center",
                         backgroundColor: "#f9f9f9",
@@ -48,6 +49,7 @@ export const DeepLearning = () => {
                     onDrop={handleDrop}
                     onDragOver={handleDragOver}
                 >
+                <CloudUploadIcon sx={{color:"gray",fontSize:"40px"}}/>
                     <Typography variant="body1">Drag and drop your documents here</Typography>
                     <Typography variant="caption" color="textSecondary">
                         Supported formats: PDF, DOC, DOCX (max 50MB)
@@ -56,7 +58,7 @@ export const DeepLearning = () => {
                         <Button
                             size="small"
                             component="label"
-                            sx={{ mt: 1, textTransform: "capitalize", color: "black", border: "1px solid gray" }}
+                            sx={{ mt: 1, textTransform: "capitalize", color: "black", border: "1px solid gray",px:2 }}
                         >
                             Choose Files
                             <input type="file" hidden multiple onChange={handleFileSelect} />

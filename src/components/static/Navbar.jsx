@@ -92,7 +92,7 @@ export default function CustomNavbar({ onMenuClick }) {
           >
             {userdata?.team?.map((team) => (
               <MenuItem key={team.teamId} value={team.teamId}>
-                {team.teamName}
+               <Typography variant="subtitle2"> {team.teamName}</Typography>
               </MenuItem>
             ))}
           </TextField>

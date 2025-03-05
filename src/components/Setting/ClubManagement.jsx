@@ -8,8 +8,8 @@ export const ClubManagement = () => {
   ];
 
   return (
-    <Box sx={{p:1,bgcolor:"#fff"}}>
-    <Box sx={{ border: "1px solid lightgray", p: 2, borderRadius: "5px" }}>
+    <Box sx={{p:3}}>
+    <Box component={Paper} sx={{ border: "1px solid lightgray", p: 2, borderRadius: "5px" }}>
       <Typography variant="h6" fontWeight="bold">
         Club Management
       </Typography>
@@ -17,10 +17,10 @@ export const ClubManagement = () => {
         View your fellow club members
       </Typography>
 
-      <TableContainer component={Paper} sx={{ mt: 1 }}>
+      <TableContainer sx={{ mt: 1,border:"1px solid lightgray",borderRadius:"5px" }}>
         <Table>
           <TableHead>
-            <TableRow sx={{bgcolor:"#e3e3e3"}}>
+            <TableRow sx={{bgcolor:"#e9eff2"}}>
               <TableCell sx={{color:"gray"}}>Name</TableCell>
               <TableCell sx={{color:"gray"}}>Team</TableCell>
               <TableCell sx={{color:"gray"}}>Status</TableCell>
@@ -30,7 +30,7 @@ export const ClubManagement = () => {
             {members.map((member, index) => (
               <TableRow key={index}>
                 <TableCell>{member.name}</TableCell>
-                <TableCell>{member.team}</TableCell>
+                <TableCell sx={{color:"gray"}}>{member.team}</TableCell>
                 <TableCell sx={{ color: member.color }}>{member.status}</TableCell>
               </TableRow>
             ))}
@@ -41,4 +41,12 @@ export const ClubManagement = () => {
     </Box>
   );
 };
+
+
+
+
+
+
+
+
 

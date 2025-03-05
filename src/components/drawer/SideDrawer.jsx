@@ -16,14 +16,37 @@ import {
   BarChart,
   Settings,
 } from "@mui/icons-material";
+import RateReviewOutlinedIcon from "@mui/icons-material/RateReviewOutlined";
+import SelectAllOutlinedIcon from "@mui/icons-material/SelectAllOutlined";
+import LightbulbOutlinedIcon from "@mui/icons-material/LightbulbOutlined";
+import FeedOutlinedIcon from '@mui/icons-material/FeedOutlined';
 import { Link, useLocation } from "react-router-dom";
 
 const sidebarItems = [
   { text: "Dashboard", icon: <Home />, path: "/dashboard" },
   { text: "Team", icon: <Group />, path: "/dashboard/teams" },
   { text: "Matches", icon: <CalendarMonth />, path: "/dashboard/matches" },
-  { text: "Standings", icon: <BarChart />, path: "/dashboard/standings" },
+  {
+    text: "Standings",
+    icon: <SelectAllOutlinedIcon />,
+    path: "/dashboard/standings",
+  },
   { text: "Analytics", icon: <BarChart />, path: "/dashboard/analytics" },
+  {
+    text: "Insight Training",
+    icon: <LightbulbOutlinedIcon />,
+    path: "/dashboard/training",
+  },
+  {
+    text: "Awareians Forum",
+    icon: <FeedOutlinedIcon />,
+    path: "/dashboard/forum",
+  },
+  {
+    text: "Post Match Feedback",
+    icon: <RateReviewOutlinedIcon />,
+    path: "/dashboard/feedback",
+  },
   { text: "Settings", icon: <Settings />, path: "/dashboard/settings" },
 ];
 
@@ -66,8 +89,10 @@ export default function Sidebar({ mobileOpen, handleDrawerToggle }) {
                   my: 0.5,
                 }}
               >
-                <ListItemIcon sx={{ color: "#fff" }}>{icon}</ListItemIcon>
-                <ListItemText primary={text} />
+                <ListItemIcon sx={{ color: "#fff",minWidth: 40 }}>{icon}</ListItemIcon>
+                <ListItemText
+                  primary={<Typography variant="subtitle2">{text}</Typography>}
+                />
               </ListItemButton>
             );
           })}

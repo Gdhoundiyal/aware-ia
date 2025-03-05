@@ -27,7 +27,6 @@ function Teams() {
           return;
         }
 
-        console.log("Fetching data for teamId:", teamId);
         const res = await axiosInstance.get(`/standing/${teamId}`);
         const formattedRows = Array.isArray(res.data)
           ? res.data.map((item) => ({
