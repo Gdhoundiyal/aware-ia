@@ -167,7 +167,20 @@ const Teams = () => {
   const soccerYear = `${currentYear}-${String(nextYear).slice(2)}`
 
   return (
-    <Box sx={{ p: 3 }}>
+    <Box sx={{
+      p: 3,
+      display: "flex",
+      flexDirection: "column",
+      background: "white", 
+      gap: 3,
+      borderRadius: 2,
+      width: "100%",
+      maxWidth: "100vw",
+      overflow: "hidden",
+      "@media (max-width: 600px)": {
+        p: 1,
+      },
+    }}>
       <Typography variant="h5" sx={{ mb: 1 }}>
         Player Assessment Table: {soccerYear}
       </Typography>
