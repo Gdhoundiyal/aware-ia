@@ -2,13 +2,13 @@ import {
     Box,
     Button,
     Typography,
-    Paper,
     Table,
     TableBody,
     TableCell,
     TableContainer,
     TableRow,
     Chip,
+    Paper,
 } from "@mui/material";
 
 export const GuestAccess = () => {
@@ -18,8 +18,8 @@ export const GuestAccess = () => {
     ];
 
     return (
-        <Box p={1}>
-            <Box sx={{ p: 2, border: "1px solid lightgray", borderRadius: "5px" }}>
+        <Box p={3}>
+            <Box component={Paper} sx={{ p: 2, border: "1px solid lightgray", borderRadius: "5px" }}>
                 <Typography variant="h6" fontWeight="bold">
                     Guest Access
                 </Typography>
@@ -27,7 +27,7 @@ export const GuestAccess = () => {
                     Invite up to 5 guests to access your account with limited permissions.
                 </Typography>
 
-                <TableContainer component={Paper} sx={{ mb: 2 }}>
+                <TableContainer sx={{ mb: 2 }}>
                     <Table>
                         <TableBody>
                             {guests.map((guest, index) => (
@@ -37,13 +37,10 @@ export const GuestAccess = () => {
                                         <Typography sx={{ color: "gray", fontSize: "14px" }}>{guest.email}</Typography>
                                     </TableCell>
                                     <TableCell>
-                                        {/* <Button size="small" variant="outlined">
-                                        {guest.permission}
-                                    </Button> */}
-                                        <Chip size="small" label={guest.permission} color="primary" variant="outlined" />
+                                        <Chip size="small" label={guest.permission} sx={{ bgcolor: guest.permission === "View Only" ? "#E5E7EB" : "#DBEAFE", color: guest.permission === "View Only" ? "gray" : "#2554D9",fontWeight:600 }} />
                                     </TableCell>
                                     <TableCell>
-                                        <Button size="small" variant="outlined" color="error" sx={{ textTransform: "capitalize" }}>
+                                        <Button size="small" variant="outlined" color="error" sx={{ textTransform: "capitalize", bgcolor: "#fee2e2", }}>
                                             Remove
                                         </Button>
                                     </TableCell>
@@ -53,7 +50,7 @@ export const GuestAccess = () => {
                     </Table>
                 </TableContainer>
 
-                <Button variant="contained" fullWidth sx={{ textTransform: "capitalize" }}>
+                <Button size="small" variant="contained" fullWidth sx={{ textTransform: "capitalize" }}>
                     Add Guest
                 </Button>
             </Box>
