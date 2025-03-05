@@ -678,8 +678,7 @@ const Signup = () => {
                     ℹ️
                   </Box>
                   <Typography variant="body2" color="text.secondary">
-                    If you coach multiple teams, you will be able to add your
-                    others from your subscription profile screen
+                    If you are responsible for multiple teams, you will be able to add others in your profile settings tab
                   </Typography>
                 </Box>
               </Stack>

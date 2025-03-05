@@ -23,7 +23,7 @@ const TeamStatus = ({ teamData }) => {
     setAvailableCount(filterPlayersByStatus("available").length);
     setInjuredCount(filterPlayersByStatus("injured").length);
     setSuspendedCount(filterPlayersByStatus("suspended").length);
-    setNotAvailableCount(filterPlayersByStatus("not-available").length);
+    setNotAvailableCount(filterPlayersByStatus("unavailable").length);
   }, [teamData]);
 
   console.log("props:",teamData)
@@ -117,7 +117,7 @@ const TeamStatus = ({ teamData }) => {
             <Typography variant="h5" color="gray" fontWeight="bold">
               {notAvailableCount}
             </Typography>
-            <Typography variant="body2">Not Available</Typography>
+            <Typography variant="body2">Unavailable</Typography>
           </Box>
         </Box>
 
@@ -227,11 +227,11 @@ const TeamStatus = ({ teamData }) => {
             >
               <Box display="flex" alignItems="center" gap={1}>
                 <CircleIcon sx={{ fontSize: 12, color: "grey" }} />
-                <Typography variant="body2">{getFirstPlayerName("not-available")}</Typography>
+                <Typography variant="body2">{getFirstPlayerName("unavailable")}</Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails>
-              {filterPlayersByStatus("not-available").map((player, index) => (
+              {filterPlayersByStatus("unavailable").map((player, index) => (
                 <Box
                   key={index}
                   display="flex"

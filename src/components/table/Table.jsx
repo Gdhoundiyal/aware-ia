@@ -24,11 +24,13 @@ const Table = ({
         "& .MuiDataGrid-cell": {
           borderBottom: "1px solid #f0f0f0",
           whiteSpace: "nowrap",
+          fontWeight: "normal",
         },
-        "& .MuiDataGrid-columnHeaders": {
+        "& .MuiDataGrid-columnHeaderTitle": {
           backgroundColor: "#fafafa",
           borderBottom: "none",
           whiteSpace: "nowrap",
+          fontWeight: "bold",
         },
         "& .MuiDataGrid-main": {
           overflow: "hidden",
