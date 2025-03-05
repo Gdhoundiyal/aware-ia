@@ -26,12 +26,16 @@ const Table = ({
           whiteSpace: "nowrap",
         },
         "& .MuiDataGrid-columnHeaders": {
-          backgroundColor: "#fafafa",
+          fontWeight:"500", 
           borderBottom: "none",
           whiteSpace: "nowrap",
         },
-        "& .MuiDataGrid-main": {
-          overflow: "hidden",
+        
+        "& .MuiDataGrid-container--top [role=row], .MuiDataGrid-container--bottom [role=row]": {
+          backgroundColor: "#e0e0e0", 
+        },
+        "& .MuiDataGrid-row:hover": {
+          backgroundColor: "#f5f5f5", 
         },
       }}
     />
