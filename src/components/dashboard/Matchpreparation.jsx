@@ -21,6 +21,7 @@ const MatchPreparation = ({ nextMatch }) => {
   const theme = useTheme()
   const [matchStatus, setMatchStatus] = useState("On")
   const [fixtureType, setFixtureType] = useState("League")
+  console.log("hereeeees")
 
   const formatDate = (dateString) => {
     if (!dateString) return ""

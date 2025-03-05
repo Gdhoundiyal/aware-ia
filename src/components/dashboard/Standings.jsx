@@ -30,62 +30,61 @@ const Standings = () => {
             field: 'position',
             headerName: 'Pos',
             width: 70,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'team_name',
             headerName: 'Team',
             width: 300,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'W',
             headerName: 'W',
             width: 70,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'L',
             headerName: 'L',
             width: 70,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'D',
             headerName: 'D',
             width: 70,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'GA',
             headerName: 'GA',
             width: 70,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'GF',
             headerName: 'GF',
             width: 70,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'GD',
             headerName: 'GD',
             width: 100,
-            sortable: false,
-         
+            sortable: true,
         },
         {
             field: 'PTS',
             headerName: 'PTS',
             width: 70,
-            sortable: false,
+            sortable: true,
         },
         {
             field: 'QP',
             headerName: 'QP',
             width: 70,
-            sortable: false,
+            sortable: true,
             valueGetter: () => '21'
         }
     ];
@@ -93,7 +92,8 @@ const Standings = () => {
     // Transform the data to include an id field required by DataGrid
     const rows = data.map(item => ({
         ...item,
-        id: item._id
+        id: item._id,
+        position:parseInt(item.position)
     }));
 
     return (
