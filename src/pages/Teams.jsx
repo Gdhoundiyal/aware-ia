@@ -59,7 +59,7 @@ const Teams = () => {
     switch (status) {
       case "available":
         return { bg: "#e6f7ed", color: "#1e8e3e" }
-      case "not-available":
+      case "unavailable":
         return { bg: "#fce8e6", color: "#d93025" }
       case "suspended":
         return { bg: "#fef7e0", color: "#f9ab00" }
@@ -96,7 +96,7 @@ const Teams = () => {
                   },
                 }}
               >
-                {["available", "not-available", "suspended", "injured"].map((status) => (
+                {["available", "unavailable", "suspended", "injured"].map((status) => (
                   <MenuItem key={status} value={status}>
                     {status.charAt(0).toUpperCase() + status.slice(1).replace("-", " ")}
                   </MenuItem>

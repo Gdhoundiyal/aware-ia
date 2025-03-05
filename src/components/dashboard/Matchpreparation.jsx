@@ -67,8 +67,11 @@ const MatchPreparation = ({ nextMatch }) => {
             <Typography variant="h5" sx={{ fontWeight: "bold", mb: 1 }}>
               Next Match Prep
             </Typography>
-            <Typography variant="h6" sx={{ color: "text.secondary", mb: 2 }}>
-              vs {nextMatch?.opponentName || "No upcoming matches found"}
+            <Typography variant="h6" sx={{ color: "text.secondary", mb: 2, display:'inline' }}>
+              vs{" "}
+            </Typography>
+            <Typography variant="h6" sx={{ color: "green", mb: 2, display : 'inline-block' }}>
+             {nextMatch?.opponentName || "No upcoming matches found"}
             </Typography>
             <Paper elevation={0} sx={{ p: 2, bgcolor: theme.palette.grey[100], borderRadius: 2 }}>
               <Typography variant="body2" sx={{ color: "text.secondary", mb: 1 }}>

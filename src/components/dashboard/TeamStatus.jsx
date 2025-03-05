@@ -23,7 +23,7 @@ const TeamStatus = ({ teamData }) => {
     setAvailableCount(filterPlayersByStatus("available").length);
     setInjuredCount(filterPlayersByStatus("injured").length);
     setSuspendedCount(filterPlayersByStatus("suspended").length);
-    setNotAvailableCount(filterPlayersByStatus("not-available").length);
+    setNotAvailableCount(filterPlayersByStatus("unavailable").length);
   }, [teamData]);
 
   console.log("props:",teamData)
@@ -117,7 +117,7 @@ const TeamStatus = ({ teamData }) => {
             <Typography variant="h5" color="gray" fontWeight="bold">
               {notAvailableCount}
             </Typography>
-            <Typography variant="body2">Not Available</Typography>
+            <Typography variant="body2">Unavailable</Typography>
           </Box>
         </Box>
 
@@ -126,6 +126,7 @@ const TeamStatus = ({ teamData }) => {
         {/* Collapsible Sections Container */}
         <Box sx={{ 
           flex: 1,
+          
           overflow: "auto",
           "& .MuiAccordionDetails-root": {
             maxHeight: "200px",
@@ -147,7 +148,7 @@ const TeamStatus = ({ teamData }) => {
             >
               <Box display="flex" alignItems="center" gap={1}>
                 <CircleIcon sx={{ fontSize: 12, color: "green" }} />
-                <Typography>{getFirstPlayerName("available")}</Typography>
+                <Typography>Available</Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails>
@@ -160,7 +161,8 @@ const TeamStatus = ({ teamData }) => {
                   p={1}
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
-                  <Typography>{player.name}</Typography>
+                     <Typography>{"Player No: "+ player.player_number} </Typography>
+                     <Typography> {"Postion: " +player.position} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "green" }} />
                 </Box>
               ))}
@@ -174,7 +176,7 @@ const TeamStatus = ({ teamData }) => {
             >
               <Box display="flex" alignItems="center" gap={1}>
                 <CircleIcon sx={{ fontSize: 12, color: "#2979ff" }} />
-                <Typography variant="body2">{getFirstPlayerName("injured")}</Typography>
+                <Typography variant="body2">Injured</Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails>
@@ -187,7 +189,8 @@ const TeamStatus = ({ teamData }) => {
                   p={1}
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
-                  <Typography>{player.name}</Typography>
+                  <Typography>{"Player No: "+ player.player_number} </Typography>
+                  <Typography> {"Postion: " +player.position} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "#2979ff" }} />
                 </Box>
               ))}
@@ -201,7 +204,7 @@ const TeamStatus = ({ teamData }) => {
             >
               <Box display="flex" alignItems="center" gap={1}>
                 <CircleIcon sx={{ fontSize: 12, color: "red" }} />
-                <Typography variant="body2">{getFirstPlayerName("suspended")}</Typography>
+                <Typography variant="body2">Suspended</Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails>
@@ -214,7 +217,8 @@ const TeamStatus = ({ teamData }) => {
                   p={1}
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
-                  <Typography>{player.name}</Typography>
+                     <Typography>{"Player No: "+ player.player_number} </Typography>
+                     <Typography> {"Postion: " +player.position} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "red" }} />
                 </Box>
               ))}
@@ -227,11 +231,11 @@ const TeamStatus = ({ teamData }) => {
             >
               <Box display="flex" alignItems="center" gap={1}>
                 <CircleIcon sx={{ fontSize: 12, color: "grey" }} />
-                <Typography variant="body2">{getFirstPlayerName("not-available")}</Typography>
+                <Typography variant="body2">Unavailable</Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails>
-              {filterPlayersByStatus("not-available").map((player, index) => (
+              {filterPlayersByStatus("unavailable").map((player, index) => (
                 <Box
                   key={index}
                   display="flex"
@@ -240,7 +244,8 @@ const TeamStatus = ({ teamData }) => {
                   p={1}
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
-                  <Typography>{player.name}</Typography>
+                    <Typography>{"Player No: "+ player.player_number} </Typography>
+                    <Typography> {"Postion: " +player.position} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "grey" }} />
                 </Box>
               ))}

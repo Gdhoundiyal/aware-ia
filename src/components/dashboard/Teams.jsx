@@ -32,6 +32,7 @@ function Teams() {
           ? res.data.map((item) => ({
               ...item,
               id: item._id,
+              position:parseInt(item.position)
             }))
           : [];
         setTableData(formattedRows);
