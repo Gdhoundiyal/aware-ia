@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, CssBaseline } from "@mui/material";
 import CustomNavbar from "../static/Navbar";
-import Sidebar from "./SideDrawer";
+import Sidebar from "../drawer/SideDrawer";
 import { Outlet } from "react-router-dom";
 
 export default function DashboardLayout() {

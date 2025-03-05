@@ -4,21 +4,24 @@ import DashboardLayout from "./components/dashboard/DashBoard";
 import Teams from "./pages/Teams";
 import Matches from "./components/dashboard/Matches";
 import Analytics from "./components/dashboard/Analytics";
-import { Settings } from "./components/dashboard/Setting/Settings";
+import { Settings } from "./components/Setting/Settings";
 import OverView from "./components/dashboard/OverView";
 import AuthGuard from "./Authguard";
 import Login from "./components/auth/Login";
 import Standings from "./components/dashboard/Standings";
-import { PersonalInfo } from "./components/dashboard/Setting/PersonalInfo";
-import { TeamManagement } from "./components/dashboard/Setting/TeamManagement";
-import { ClubManagement } from "./components/dashboard/Setting/ClubManagement";
-import { GuestAccess } from "./components/dashboard/Setting/GuestAccess";
-import { DeepLearning } from "./components/dashboard/Setting/DeepLearning";
-import { SubscriptionBilling } from "./components/dashboard/Setting/SubscriptonBilling";
-import { CloseAccount } from "./components/dashboard/Setting/CloseAccount";
-import Notifications from "./components/dashboard/Setting/Notification";
-import Privacy from "./components/dashboard/Setting/Privacy";
-import Security from "./components/dashboard/Setting/Security";
+import { PersonalInfo } from "./components/Setting/PersonalInfo";
+import { TeamManagement } from "./components/Setting/TeamManagement";
+import { ClubManagement } from "./components/Setting/ClubManagement";
+import { GuestAccess } from "./components/Setting/GuestAccess";
+import { DeepLearning } from "./components/Setting/DeepLearning";
+import { SubscriptionBilling } from "./components/Setting/SubscriptonBilling";
+import { CloseAccount } from "./components/Setting/CloseAccount";
+import Notifications from "./components/Setting/Notification";
+import Privacy from "./components/Setting/Privacy";
+import Security from "./components/Setting/Security";
+import PreMatchChecklist from "./components/feedback/PostMatchFeedback";
+import TrainingRecommendations from "./components/training/TrainingRecommendations";
+import TacticalDeepDives from './components/forumPost/TacticalDeepDives'
 
 function App() {
   return (
@@ -62,6 +65,9 @@ function App() {
           <Route path="matches" element={<Matches />} />
           <Route path="standings" element={<Standings/>} />
           <Route path="analytics" element={<Analytics />} />
+          <Route path="training" element={<TrainingRecommendations />} />
+          <Route path="forum" element={<TacticalDeepDives />} />
+          <Route path="feedback" element={<PreMatchChecklist />} />
           <Route path="settings" element={<Settings />} >
           <Route path="personalInfo" element={<PersonalInfo />} />
           <Route path="team-management" element={<TeamManagement />} />
