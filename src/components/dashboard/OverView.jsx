@@ -8,6 +8,7 @@ import Teams from "./Teams";
 import Matches from "./Matches";
 import SportsAnalyticsDashboard from "./Analytics";
 import axiosInstance from "../../axios/axiosInstance";
+import TeamMangement from "./TeamMangement";
 
 const Overview = () => {
   const [nextmatch, setNextMatch] = useState({});
@@ -37,8 +38,8 @@ const Overview = () => {
     completedTasks: ["Print game lineup card"],
     refereeFees: [
       { role: "MR", amount: "100 / 2 =  $50" },
-      { role: "AR1", amount: 34 },
-      { role: "AR2", amount: 20 },
+      { role: "AR1", amount: "34 / 2 = $17" },
+      { role: "AR2", amount: "20 / 2 = 10" },
     ],
     pendingTasks: ["Touch base with opponent", "Align with co-coaches/manager"],
   };
@@ -128,7 +129,7 @@ const Overview = () => {
         <PreMatchChecklist {...checklistData} />
       </Box>
       <Teams />
-      <Matches />
+      <TeamMangement/>
       <SportsAnalyticsDashboard />
     </Stack>
   );

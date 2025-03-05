@@ -17,11 +17,13 @@ const TeamStatus = ({ teamData }) => {
   const [availableCount, setAvailableCount] = useState(0);
   const [injuredCount, setInjuredCount] = useState(0);
   const [suspendedCount, setSuspendedCount] = useState(0);
+  const [notAvailableCount,setNotAvailableCount] = useState(0);
 
   useEffect(() => {
     setAvailableCount(filterPlayersByStatus("available").length);
     setInjuredCount(filterPlayersByStatus("injured").length);
     setSuspendedCount(filterPlayersByStatus("suspended").length);
+    setNotAvailableCount(filterPlayersByStatus("unavailable").length);
   }, [teamData]);
 
   console.log("props:",teamData)
@@ -113,9 +115,9 @@ const TeamStatus = ({ teamData }) => {
           </Box>
           <Box textAlign="center">
             <Typography variant="h5" color="gray" fontWeight="bold">
-              {suspendedCount}
+              {notAvailableCount}
             </Typography>
-            <Typography variant="body2">Not Available</Typography>
+            <Typography variant="body2">Unavailable</Typography>
           </Box>
         </Box>
 
@@ -171,7 +173,7 @@ const TeamStatus = ({ teamData }) => {
               sx={{ bgcolor: '#fff8f8' }}
             >
               <Box display="flex" alignItems="center" gap={1}>
-                <CircleIcon sx={{ fontSize: 12, color: "red" }} />
+                <CircleIcon sx={{ fontSize: 12, color: "#2979ff" }} />
                 <Typography variant="body2">{getFirstPlayerName("injured")}</Typography>
               </Box>
             </AccordionSummary>
@@ -186,7 +188,7 @@ const TeamStatus = ({ teamData }) => {
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
                   <Typography>{player.name}</Typography>
-                  <CircleIcon sx={{ fontSize: 12, color: "red" }} />
+                  <CircleIcon sx={{ fontSize: 12, color: "#2979ff" }} />
                 </Box>
               ))}
             </AccordionDetails>
@@ -198,7 +200,7 @@ const TeamStatus = ({ teamData }) => {
               sx={{ bgcolor: '#fffdf8' }}
             >
               <Box display="flex" alignItems="center" gap={1}>
-                <CircleIcon sx={{ fontSize: 12, color: "goldenrod" }} />
+                <CircleIcon sx={{ fontSize: 12, color: "red" }} />
                 <Typography variant="body2">{getFirstPlayerName("suspended")}</Typography>
               </Box>
             </AccordionSummary>
@@ -213,7 +215,7 @@ const TeamStatus = ({ teamData }) => {
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
                   <Typography>{player.name}</Typography>
-                  <CircleIcon sx={{ fontSize: 12, color: "goldenrod" }} />
+                  <CircleIcon sx={{ fontSize: 12, color: "red" }} />
                 </Box>
               ))}
             </AccordionDetails>
@@ -224,12 +226,12 @@ const TeamStatus = ({ teamData }) => {
               sx={{ bgcolor: '#fffdf8' }}
             >
               <Box display="flex" alignItems="center" gap={1}>
-                <CircleIcon sx={{ fontSize: 12, color: "goldenrod" }} />
-                <Typography variant="body2">{getFirstPlayerName("not-available")}</Typography>
+                <CircleIcon sx={{ fontSize: 12, color: "grey" }} />
+                <Typography variant="body2">{getFirstPlayerName("unavailable")}</Typography>
               </Box>
             </AccordionSummary>
             <AccordionDetails>
-              {filterPlayersByStatus("not-available").map((player, index) => (
+              {filterPlayersByStatus("unavailable").map((player, index) => (
                 <Box
                   key={index}
                   display="flex"
@@ -239,7 +241,7 @@ const TeamStatus = ({ teamData }) => {
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
                   <Typography>{player.name}</Typography>
-                  <CircleIcon sx={{ fontSize: 12, color: "goldenrod" }} />
+                  <CircleIcon sx={{ fontSize: 12, color: "grey" }} />
                 </Box>
               ))}
             </AccordionDetails>
