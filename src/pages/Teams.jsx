@@ -94,7 +94,7 @@ const Teams = () => {
     {
       field: "position",
       headerName: "Position",
-      width: 200,
+      width: 300,
     },
     {
       field: "status",
@@ -157,7 +157,7 @@ const Teams = () => {
   const rows = teamData.map((player) => ({
     status: player.status || "available",
     player_number: player.player_number,
-    position: player.position + " " +  player.pos,
+    position: player.position + " " +  `(${player.pos})`,
     player_prompt: player.player_prompt || "NA",
     awareia_insight: player.awareia_insight,
     id: player._id, // Ensure player ID is included
