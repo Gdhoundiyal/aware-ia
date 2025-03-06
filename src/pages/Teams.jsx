@@ -87,9 +87,19 @@ const Teams = () => {
   // Sample data for the table
   const columns = [
     {
+      field: "player_number",
+      headerName: "Player #",
+      width: 150,
+    },
+    {
+      field: "position",
+      headerName: "Position",
+      width: 200,
+    },
+    {
       field: "status",
-      headerName: "Status",
-      width: 180,
+      headerName: "Availability (Select One)",
+      width: 200,
       renderCell: (params) => {
         const statusColor = getStatusColor(params.value);
         return (
@@ -102,7 +112,7 @@ const Teams = () => {
             }}>
             <FormControl
               variant="filled"
-              sx={{ ml: 1, minWidth: 120, bgcolor: "transparent" }}>
+              sx={{ minWidth: 120, bgcolor: "transparent" }}>
               <Select
                 value={params.value}
                 onChange={(e) => handleStatusChange(e, params.row.id)}
@@ -132,56 +142,24 @@ const Teams = () => {
       },
     },
     {
-      field: "name",
-      headerName: "Player Name",
-      width: 180,
+      field: "player_prompt",
+      headerName: "Player 360 Prompt",
+      width: 250,
     },
     {
-      field: "position",
-      headerName: "Position",
-      width: 130,
+      field: "awareia_insight",
+      headerName: "Awareia Insights",
+      width: 250,
     },
-    {
-      field: "technical_skills",
-      headerName: "Technical Skills",
-      width: 130,
-      type: "number",
-    },
-    {
-      field: "athleticism",
-      headerName: "Athleticism",
-      width: 130,
-      type: "number",
-    },
-    {
-      field: "game_iq",
-      headerName: "Game IQ",
-      width: 130,
-      type: "number",
-    },
-    {
-      field: "work_rate",
-      headerName: "Work Rate",
-      width: 130,
-      type: "number",
-    },
-    {
-      field: "versatility",
-      headerName: "Versatility",
-      width: 130,
-      type: "number",
-    },
+
   ];
 
   const rows = teamData.map((player) => ({
     status: player.status || "available",
-    name: player.name,
-    position: player.position,
-    technical_skills: player.technical_skills,
-    athleticism: player.athleticism,
-    game_iq: player.game_iq,
-    work_rate: player.work_rate,
-    versatility: player.versatility,
+    player_number: player.player_number,
+    position: player.position + " " +  player.pos,
+    player_prompt: player.player_prompt || "NA",
+    awareia_insight: player.awareia_insight,
     id: player._id, // Ensure player ID is included
   }));
 
@@ -242,7 +220,7 @@ const Teams = () => {
       <Table
         rows={rows}
         columns={columns}
-        paginationModel={{ page: 0, pageSize: 10 }}
+        paginationModel={{ page: 0, pageSize: 15 }}
       />
     </Box>
   );

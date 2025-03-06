@@ -87,7 +87,7 @@ const Standings = () => {
       headerName: "QP",
       width: 70,
       sortable: true,
-      valueGetter: () => "21",
+      valueGetter: () => "0",
     },
   ];
 
