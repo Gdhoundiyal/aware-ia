@@ -22,6 +22,7 @@ import Security from "./components/Setting/Security";
 import PreMatchChecklist from "./components/feedback/PostMatchFeedback";
 import TrainingRecommendations from "./components/training/TrainingRecommendations";
 import TacticalDeepDives from './components/forumPost/TacticalDeepDives'
+import { AwarianForam } from "./components/forumPost/Foram";
 
 function App() {
   return (
@@ -66,7 +67,7 @@ function App() {
           <Route path="standings" element={<Standings/>} />
           <Route path="analytics" element={<Analytics />} />
           <Route path="training" element={<TrainingRecommendations />} />
-          <Route path="forum" element={<TacticalDeepDives />} />
+          <Route path="forum" element={<AwarianForam />} />
           <Route path="feedback" element={<PreMatchChecklist />} />
           <Route path="settings" element={<Settings />} >
           <Route path="personalInfo" element={<PersonalInfo />} />

@@ -39,7 +39,7 @@ const posts = [
 
 const TacticalDeepDives = () => {
   return (
-    <Box sx={{ p: 2, mx: "auto", height: "100%", display: "flex", flexDirection: "column" }}>
+    <Box sx={{ mx: "auto", height: "100%", display: "flex", flexDirection: "column" }}>
     {/* Fixed Header */}
     <Box sx={{ pb: 1 }}>
       <Stack direction="row" justifyContent="space-between" alignItems="center">
