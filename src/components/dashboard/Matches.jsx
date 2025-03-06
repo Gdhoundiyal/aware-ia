@@ -120,7 +120,7 @@ function Matches() {
             alignItems: "center",
             mb: 2,
           }}>
-          <Typography variant="h5" component="h2" sx={{ fontWeight: 500 }}>
+          <Typography variant="h5" component="h2" sx={{ fontWeight: "bold" }}>
             Upcoming Matches
           </Typography>
           <Box

@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import { useState } from "react"
+import { useState } from "react";
 import {
   Box,
   Card,
@@ -19,16 +19,16 @@ import {
   IconButton,
   Tooltip,
   Paper,
-} from "@mui/material"
+} from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import { PieChart } from "@mui/x-charts/PieChart"
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline"
-import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline"
+import { PieChart } from "@mui/x-charts/PieChart";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import ErrorOutlineIcon from "@mui/icons-material/ErrorOutline";
 
 export default function SportsAnalyticsDashboard() {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down("sm"))
-  const isTablet = useMediaQuery(theme.breakpoints.down("md"))
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+  const isTablet = useMediaQuery(theme.breakpoints.down("md"));
 
   // Initial pie chart data
   const initialPieChartData = [
@@ -36,15 +36,19 @@ export default function SportsAnalyticsDashboard() {
     { id: 1, value: 30, label: "4-2-3-1", color: "#78909c", active: true },
     { id: 2, value: 15, label: "3-5-2", color: "#2e7d32", active: true },
     { id: 3, value: 15, label: "Other", color: "#d32f2f", active: true },
-  ]
+  ];
 
   // State for pie chart data with active status
-  const [pieChartData, setPieChartData] = useState(initialPieChartData)
+  const [pieChartData, setPieChartData] = useState(initialPieChartData);
 
   // Toggle active status of a pie chart segment
   const toggleSegmentActive = (id) => {
-    setPieChartData((prevData) => prevData.map((item) => (item.id === id ? { ...item, active: !item.active } : item)))
-  }
+    setPieChartData((prevData) =>
+      prevData.map((item) =>
+        item.id === id ? { ...item, active: !item.active } : item
+      )
+    );
+  };
 
   // Prepare data for the chart
   const chartData = pieChartData.map((item) => ({
@@ -52,31 +56,34 @@ export default function SportsAnalyticsDashboard() {
     value: item.active ? item.value : 0,
     label: item.label,
     color: item.active ? item.color : "#e0e0e0", // Light grey for inactive
-  }))
+  }));
 
   // Data for strengths and weaknesses
-  const strengths = ["Strong aerial presence in set pieces", "Quick counter-attacking style"]
+  const strengths = [
+    "Strong aerial presence in set pieces",
+    "Quick counter-attacking style",
+  ];
 
-  const weaknesses = ["Vulnerable to high press", "Poor defensive transitions"]
+  const weaknesses = ["Vulnerable to high press", "Poor defensive transitions"];
 
   // Data for tactical comparison
   const tacticalComparison = [
     { category: "Possession Style", value: "Possession-based" },
     { category: "Pressing Intensity", value: "High Press" },
     { category: "Build-up Play", value: "Short Passing" },
-  ]
+  ];
 
   return (
     <Box sx={{ p: 3 }}>
       <Paper sx={{ p: 2 }}>
         <Grid container p={2} spacing={3}>
           <Grid size={{ xs: 12 }}>
-            <Typography variant="h5" component="h2" sx={{ fontWeight: 500, }}>
+            <Typography variant="h5" component="h2" sx={{ fontWeight: "bold" }}>
               Awareia Insight
             </Typography>
           </Grid>
           {/* Opponent Strengths & Weaknesses */}
-          <Grid  size={{ xs: 12,sm:12, md: 6 }}>
+          <Grid size={{ xs: 12, sm: 12, md: 6 }}>
             <Card sx={{ height: "100%" }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -91,8 +98,7 @@ export default function SportsAnalyticsDashboard() {
                         borderRadius: 1,
                         mb: 1,
                         py: 1,
-                      }}
-                    >
+                      }}>
                       <ListItemIcon sx={{ minWidth: 36 }}>
                         <CheckCircleOutlineIcon color="success" />
                       </ListItemIcon>
@@ -107,8 +113,7 @@ export default function SportsAnalyticsDashboard() {
                         borderRadius: 1,
                         mb: 1,
                         py: 1,
-                      }}
-                    >
+                      }}>
                       <ListItemIcon sx={{ minWidth: 36 }}>
                         <ErrorOutlineIcon color="error" />
                       </ListItemIcon>
@@ -121,7 +126,7 @@ export default function SportsAnalyticsDashboard() {
           </Grid>
 
           {/* Tactical Trends */}
-          <Grid size={{ xs: 12,sm:12, md: 6 }}>
+          <Grid size={{ xs: 12, sm: 12, md: 6 }}>
             <Card sx={{ height: "100%" }}>
               <CardContent>
                 <Typography variant="h6" gutterBottom>
@@ -133,22 +138,27 @@ export default function SportsAnalyticsDashboard() {
                     flexDirection: "column",
                     alignItems: "center",
                     mb: 2,
-                  }}
-                >
+                  }}>
                   <Box
                     sx={{
                       width: "100%",
                       height: isMobile ? 200 : 250,
                       display: "flex",
                       justifyContent: "center",
-                    }}
-                  >
+                    }}>
                     <PieChart
                       series={[
                         {
                           data: chartData,
-                          highlightScope: { faded: "global", highlighted: "item" },
-                          faded: { innerRadius: 30, additionalRadius: -30, color: "gray" },
+                          highlightScope: {
+                            faded: "global",
+                            highlighted: "item",
+                          },
+                          faded: {
+                            innerRadius: 30,
+                            additionalRadius: -30,
+                            color: "gray",
+                          },
                           animated: true,
                         },
                       ]}
@@ -165,8 +175,7 @@ export default function SportsAnalyticsDashboard() {
                       flexWrap: "wrap",
                       gap: 2,
                       mt: 1,
-                    }}
-                  >
+                    }}>
                     {pieChartData.map((item) => (
                       <Box
                         key={item.id}
@@ -174,9 +183,11 @@ export default function SportsAnalyticsDashboard() {
                           display: "flex",
                           alignItems: "center",
                           gap: 1,
-                        }}
-                      >
-                        <Tooltip title={item.active ? "Click to disable" : "Click to enable"}>
+                        }}>
+                        <Tooltip
+                          title={
+                            item.active ? "Click to disable" : "Click to enable"
+                          }>
                           <IconButton
                             onClick={() => toggleSegmentActive(item.id)}
                             size="small"
@@ -194,10 +205,13 @@ export default function SportsAnalyticsDashboard() {
                         <Typography
                           variant="body2"
                           sx={{
-                            color: item.active ? "text.primary" : "text.secondary",
-                            textDecoration: item.active ? "none" : "line-through",
-                          }}
-                        >
+                            color: item.active
+                              ? "text.primary"
+                              : "text.secondary",
+                            textDecoration: item.active
+                              ? "none"
+                              : "line-through",
+                          }}>
                           {item.label}
                         </Typography>
                       </Box>
@@ -229,6 +243,5 @@ export default function SportsAnalyticsDashboard() {
         </Grid>
       </Paper>
     </Box>
-  )
+  );
 }
-

@@ -99,12 +99,10 @@ const Teams = () => {
               alignItems: "center",
               height: "100%",
               justifyContent: "space-between",
-            }}
-          >
+            }}>
             <FormControl
               variant="filled"
-              sx={{ ml: 1, minWidth: 120, bgcolor: "transparent" }}
-            >
+              sx={{ ml: 1, minWidth: 120, bgcolor: "transparent" }}>
               <Select
                 value={params.value}
                 onChange={(e) => handleStatusChange(e, params.row.id)}
@@ -118,8 +116,7 @@ const Teams = () => {
                   "& .MuiSelect-select": {
                     bgcolor: "transparent",
                   },
-                }}
-              >
+                }}>
                 {["available", "unavailable", "suspended", "injured"].map(
                   (status) => (
                     <MenuItem key={status} value={status}>
@@ -208,12 +205,11 @@ const Teams = () => {
         "@media (max-width: 600px)": {
           p: 1,
         },
-      }}
-    >
+      }}>
       {/* Header Section with Buttons */}
       <Stack direction="row" justifyContent="space-between" alignItems="center">
         <Box>
-          <Typography variant="h5" sx={{ mb: 1 }}>
+          <Typography variant="h5" sx={{ mb: 1, fontWeight: "bold" }}>
             Player Assessment Table: {soccerYear}
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
@@ -228,8 +224,7 @@ const Teams = () => {
             variant="contained"
             color="primary"
             size="small"
-            sx={{ fontSize: "0.75rem", padding: "4px 10px" }}
-          >
+            sx={{ fontSize: "0.75rem", padding: "4px 10px" }}>
             Add New Player
           </Button>
           <Button
@@ -237,8 +232,7 @@ const Teams = () => {
             color="secondary"
             size="small"
             disabled={!selectedPlayer}
-            sx={{ fontSize: "0.75rem", padding: "4px 10px" }}
-          >
+            sx={{ fontSize: "0.75rem", padding: "4px 10px" }}>
             Edit Selected Player
           </Button>
         </Stack>

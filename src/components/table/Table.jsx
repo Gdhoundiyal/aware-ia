@@ -26,16 +26,19 @@ const Table = ({
           whiteSpace: "nowrap",
         },
         "& .MuiDataGrid-columnHeaders": {
-          fontWeight:"500", 
+          fontWeight: "bold",
           borderBottom: "none",
           whiteSpace: "nowrap",
         },
-        
-        "& .MuiDataGrid-container--top [role=row], .MuiDataGrid-container--bottom [role=row]": {
-          backgroundColor: "#e0e0e0", 
+        "& .MuiDataGrid-columnHeaderTitle": {
+          fontWeight: "bold",
         },
+        "& .MuiDataGrid-container--top [role=row], .MuiDataGrid-container--bottom [role=row]":
+          {
+            backgroundColor: "#e0e0e0",
+          },
         "& .MuiDataGrid-row:hover": {
-          backgroundColor: "#f5f5f5", 
+          backgroundColor: "#f5f5f5",
         },
       }}
     />

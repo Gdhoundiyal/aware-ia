@@ -32,7 +32,7 @@ function Teams() {
           ? res.data.map((item) => ({
               ...item,
               id: item._id,
-              position:parseInt(item.position)
+              position: parseInt(item.position),
             }))
           : [];
         setTableData(formattedRows);
@@ -55,12 +55,11 @@ function Teams() {
         flexDirection: "column",
         gap: 4,
         width: "100%",
-        maxWidth: "100vw", // Use viewport width instead of percentage
+        maxWidth: "100vw",
         "@media (max-width: 600px)": {
-          p: 1, // Reduce padding on small screens
+          p: 1,
         },
       }}>
-      {/* Upcoming Matches Section */}
       <Paper
         sx={{
           p: { xs: 1, sm: 3 }, // Responsive padding
@@ -74,7 +73,7 @@ function Teams() {
             alignItems: "center",
             mb: 2,
           }}>
-          <Typography variant="h5" component="h2" sx={{ fontWeight: 500 }}>
+          <Typography variant="h5" component="h2" sx={{ fontWeight: "bold" }}>
             Upcoming Matches
           </Typography>
           <Box
@@ -99,11 +98,14 @@ function Teams() {
       {/* League Standings Section */}
       <Paper
         sx={{
-          p: { xs: 1, sm: 3 }, // Responsive padding
+          p: { xs: 1, sm: 3 },
           borderRadius: 2,
           width: "100%",
         }}>
-        <Typography variant="h5" component="h2" sx={{ mb: 2, fontWeight: 500 }}>
+        <Typography
+          variant="h5"
+          component="h2"
+          sx={{ mb: 2, fontWeight: "bold" }}>
           League Division Standings
         </Typography>
         <Table
