@@ -42,8 +42,9 @@ export const AwarianForam = () => {
                                 px: isMobile ? 2 : 2, 
                                 ml: isMobile ? 1 : 2,
                                 fontSize: isMobile ? "12px" : "14px", 
-                                "&.Mui-selected": { bgcolor: "#b5bcc7",color:"black" },
-                                "&:hover": { bgcolor: "rgba(255,255,255,0.5)" }
+                                opacity:1,
+                                "&.Mui-selected": { bgcolor: "white",color:"black", fontWeight:"semi-bold" },
+                                "&:hover": { bgcolor: "white" }
                             }
                         }}
                     >
@@ -52,11 +53,11 @@ export const AwarianForam = () => {
                                 key={item.value}
                                 icon={item.icon}
                                 iconPosition="start"
-                                sx={{color:"#030303"}}
+                                // sx={{color:"black"}}
                                 value={item.value}
                                 label={
                                     <Box sx={{ display: "flex", alignItems: "center", gap: 2,}}>
-                                       <span>{item.label}</span> 
+                                      <span className="text-black">{item.label}</span> 
                                         <Badge
                                             badgeContent={item.count}
                                             color="primary"
@@ -75,20 +76,20 @@ export const AwarianForam = () => {
                         ))}
                     </TabList>
                 </Box>
-                <TabPanel value="0" sx={{ p: 2, bgcolor: "#f0f2f2", }}>
+                <TabPanel value="0" sx={{ p: 2 }}>
                     <Typography variant="h5" fontWeight="bold">
                         Intra club
                     </Typography>
                 </TabPanel>
-                <TabPanel value="1" sx={{ p: 2, bgcolor: "#f0f2f2" }}>
+                <TabPanel value="1" sx={{ p:2 }}>
                     <Typography variant="h5" fontWeight="bold">
                         Inter club
                     </Typography>
                 </TabPanel>
-                <TabPanel value="2" sx={{ p: 2, bgcolor: "#f0f2e4", }}>
+                <TabPanel value="2" sx={{ p: 2 }}>
                     <TacticalDeepDives />
                 </TabPanel>
-                <TabPanel value="3" sx={{ p: 2, bgcolor: "#f0f2f2" }}>
+                <TabPanel value="3" sx={{ p: 2 }}>
                     <Typography variant="h5" fontWeight="bold">
                         Game day descision
                     </Typography>
