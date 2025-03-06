@@ -24,8 +24,8 @@ export const upcomingMatchesColumns = [
   },
   {
     field: "status",
-    headerName: "Preparation Status",
-    width: 180,
+    headerName: "Awariea Insight Game Prep",
+    width: 250,
     renderCell: (params) => {
       const colors = {
         Complete: "#16a34a",
@@ -151,7 +151,7 @@ export const upcomingMatchesRows = [
 ];
 
 export const standingsColumns = [
-  { field: "position", headerName: "Pos", width: 60 },
+  { field: "position", headerName: "Pos", width: 100 },
   { field: "team_name", headerName: "Team", flex: 1 },
   { field: "W", headerName: "W", width: 60 },
   { field: "L", headerName: "L", width: 60 },

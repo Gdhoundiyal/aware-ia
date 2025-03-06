@@ -5,6 +5,7 @@ import TeamStatus from "./TeamStatus";
 import PreMatchChecklist from "./PrematchCecklist";
 import MatchPreparation from "./Matchpreparation";
 import Teams from "./Teams";
+import Team from "../../pages/Teams";
 import Matches from "./Matches";
 import SportsAnalyticsDashboard from "./Analytics";
 import axiosInstance from "../../axios/axiosInstance";
@@ -39,7 +40,7 @@ const Overview = () => {
     refereeFees: [
       { role: "MR", amount: "100 / 2 =  $50" },
       { role: "AR1", amount: "34 / 2 = $17" },
-      { role: "AR2", amount: "20 / 2 = 10" },
+      { role: "AR2", amount: "34 / 2 = $17" },
     ],
     pendingTasks: ["Touch base with opponent", "Align with co-coaches/manager"],
   };
@@ -128,6 +129,7 @@ const Overview = () => {
         <TeamStatus teamData={teamData} {...teamsData} />
         <PreMatchChecklist {...checklistData} />
       </Box>
+      <Matches/>
       <Teams />
       <TeamMangement/>
       <SportsAnalyticsDashboard />

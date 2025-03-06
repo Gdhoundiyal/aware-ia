@@ -60,40 +60,7 @@ function Teams() {
           p: 1,
         },
       }}>
-      <Paper
-        sx={{
-          p: { xs: 1, sm: 3 }, // Responsive padding
-          borderRadius: 2,
-          width: "100%",
-        }}>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-            mb: 2,
-          }}>
-          <Typography variant="h5" component="h2" sx={{ fontWeight: "bold" }}>
-            Upcoming Matches
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              color: "primary.main",
-              cursor: "pointer",
-            }}>
-            <Typography>Calendar</Typography>
-            <CalendarMonthIcon />
-          </Box>
-        </Box>
-        <Table
-          rows={upcomingMatchesRows}
-          columns={upcomingMatchesColumns}
-          paginationModel={{ page: 0, pageSize: 5 }}
-        />
-      </Paper>
+
 
       {/* League Standings Section */}
       <Paper

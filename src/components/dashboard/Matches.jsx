@@ -61,7 +61,7 @@ function Matches() {
     {
       field: "opponentName",
       headerName: "Opponent",
-      width: 200,
+      width: 300,
       sortable: false,
     },
     {
@@ -79,10 +79,10 @@ function Matches() {
     },
     {
       field: "preparationStatus",
-      headerName: "Preparation Status",
-      width: 160,
+      headerName: "Awariea Insight Game Prep",
+      width: 250,
       sortable: false,
-      valueGetter: () => "NA",
+      valueGetter: () => "Complete",
     },
   ];
 
@@ -135,7 +135,7 @@ function Matches() {
         <Table
           rows={rows}
           columns={columns}
-          paginationModel={{ page: 0, pageSize: 5 }}
+          paginationModel={{ page: 0, pageSize: 10 }}
         />
       </Paper>
     </Box>

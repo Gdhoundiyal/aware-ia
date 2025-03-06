@@ -162,7 +162,7 @@ const TeamStatus = ({ teamData }) => {
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
                      <Typography>{"Player No: "+ player.player_number} </Typography>
-                     <Typography> {"Postion: " +player.position} </Typography>
+                     <Typography> {"Postion: " + player.pos} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "green" }} />
                 </Box>
               ))}
@@ -190,7 +190,7 @@ const TeamStatus = ({ teamData }) => {
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
                   <Typography>{"Player No: "+ player.player_number} </Typography>
-                  <Typography> {"Postion: " +player.position} </Typography>
+                  <Typography> {"Postion: " +player.pos} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "#2979ff" }} />
                 </Box>
               ))}
@@ -218,7 +218,7 @@ const TeamStatus = ({ teamData }) => {
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
                      <Typography>{"Player No: "+ player.player_number} </Typography>
-                     <Typography> {"Postion: " +player.position} </Typography>
+                     <Typography> {"Postion: " +player.pos} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "red" }} />
                 </Box>
               ))}
@@ -245,7 +245,7 @@ const TeamStatus = ({ teamData }) => {
                   sx={{ bgcolor: "#f9f9f9", borderRadius: 1, mt: 1 }}
                 >
                     <Typography>{"Player No: "+ player.player_number} </Typography>
-                    <Typography> {"Postion: " +player.position} </Typography>
+                    <Typography> {"Postion: " +player.pos} </Typography>
                   <CircleIcon sx={{ fontSize: 12, color: "grey" }} />
                 </Box>
               ))}
