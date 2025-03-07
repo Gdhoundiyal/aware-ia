@@ -51,7 +51,6 @@ const PostMatchFeedback = () => {
     }
 
     setFormError(false);
-    console.log("Submitted Form Data:", formData);
 
     setFormData({ match: "", rating: "", tactics: "", observations: "" });
   };

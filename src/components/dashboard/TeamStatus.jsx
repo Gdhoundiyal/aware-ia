@@ -26,7 +26,6 @@ const TeamStatus = ({ teamData }) => {
     setNotAvailableCount(filterPlayersByStatus("unavailable").length);
   }, [teamData]);
 
-  console.log("props:",teamData)
   const getStatusColor = (status) => {
     switch (status) {
       case "playing":

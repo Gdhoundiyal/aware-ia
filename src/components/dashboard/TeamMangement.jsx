@@ -1,47 +1,79 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Table from "../table/Table";
 import { Box, Paper, Typography, Button } from "@mui/material";
+import axiosInstance from "../../axios/axiosInstance";
 
 const columns = [
-  { field: "player", headerName: "Player", flex: 1 },
-  { field: "position", headerName: "Position", flex: 1 },
+  { field: "player_number", headerName: "Player #", flex: 1 },
+  { field: "positions", headerName: "Position", flex: 1 },
   { field: "age", headerName: "Age", flex: 1 },
-  { field: "currentForm", headerName: "Current Form", flex: 1 },
+  { field: "current_form", headerName: "Current Form", flex: 1 },
   { field: "fitness", headerName: "Fitness", flex: 1 },
-  { field: "recommendation", headerName: "AI Recommendation", flex: 1 },
+  { field: "recommendation", headerName: "AI Recommendation", flex: 1, valueGetter: ()=> "Start"  },
 ];
 
-const rows = [
-  {
-    id: 1,
-    player: "John Smith",
-    position: "Forward",
-    age: 24,
-    currentForm: "Excellent",
-    fitness: "95%",
-    recommendation: "Start",
-  },
-  {
-    id: 2,
-    player: "Mike Johnson",
-    position: "Midfielder",
-    age: 28,
-    currentForm: "Good",
-    fitness: "88%",
-    recommendation: "Start",
-  },
-  {
-    id: 3,
-    player: "David Williams",
-    position: "Defender",
-    age: 22,
-    currentForm: "Average",
-    fitness: "92%",
-    recommendation: "Rotation",
-  },
-];
+// const rows = [
+//   {
+//     id: 1,
+//     player: "John Smith",
+//     position: "Forward",
+//     age: 24,
+//     currentForm: "Excellent",
+//     fitness: "95%",
+//     recommendation: "Start",
+//   },
+//   {
+//     id: 2,
+//     player: "Mike Johnson",
+//     position: "Midfielder",
+//     age: 28,
+//     currentForm: "Good",
+//     fitness: "88%",
+//     recommendation: "Start",
+//   },
+//   {
+//     id: 3,
+//     player: "David Williams",
+//     position: "Defender",
+//     age: 22,
+//     currentForm: "Average",
+//     fitness: "92%",
+//     recommendation: "Rotation",
+//   },
+// ];
 
 const TeamMangement = () => {
+  const [teamData, setTeamData] = useState([]);
+
+  const teamStatus = async () => {
+    try {
+      const userdata = localStorage.getItem("user");
+      if (userdata) {
+        const parsedData = JSON.parse(userdata);
+        const teamId = parsedData?.team?.[0]?.teamId;
+
+        const res = await axiosInstance(`/players/team/${teamId}`, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("auth_token")}`,
+          },
+        });
+        console.log('response', res.data)
+        setTeamData(res.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(()=>{
+    teamStatus();
+  },[])
+
+  const rows = teamData.map((item, index) => ({
+    ...item,
+    id: index,
+    positions : item.position + " " + `(${item.pos})`
+  }));
+
   return (
     <Box
       sx={{
@@ -70,7 +102,7 @@ const TeamMangement = () => {
             mb: 2,
           }}>
           <Typography variant="h5" component="h2" sx={{ fontWeight: "bold" }}>
-            Team Management
+            Game Day LineUp
           </Typography>
           <Box
             sx={{
