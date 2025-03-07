@@ -82,14 +82,22 @@ function Matches() {
       headerName: "Awariea Insight Game Prep",
       width: 250,
       sortable: false,
-      valueGetter: () => "Complete",
+      renderCell: (params) => {
+        const colors = {
+          Complete: "#16a34a",
+          Pending: "#FFA500",
+        };
+        return (
+          <span style={{ color: colors[params.row.id === 0 ? "Complete" : "Pending"] }}>{params.row.id === 0 ? "Complete" : "Pending"}</span>
+        );
+      },
     },
   ];
 
   // Transform the data to include an id field required by DataGrid
   const rows = data.map((item, index) => ({
     ...item,
-    id: item._id || index,
+    id: index,
   }));
 
   return (

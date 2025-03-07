@@ -98,7 +98,6 @@ const Overview = () => {
               'Authorization': `Bearer ${localStorage.getItem('auth_token')}`
             }
           })
-         console.log("res.data",res.data)
           setTeamData(res.data)
          
           
@@ -114,10 +113,6 @@ const Overview = () => {
     teamStatus();
   }, []);
 
-
-  useEffect(()=>{
-    console.log("teamData",teamData)
-  },[teamData])
   return (
     <Stack spacing={3}>
       <Box>
