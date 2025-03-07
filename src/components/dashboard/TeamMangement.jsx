@@ -6,10 +6,9 @@ import axiosInstance from "../../axios/axiosInstance";
 const columns = [
   { field: "player_number", headerName: "Player #", flex: 1 },
   { field: "positions", headerName: "Position", flex: 1 },
-  { field: "age", headerName: "Age", flex: 1 },
-  { field: "current_form", headerName: "Current Form", flex: 1 },
-  { field: "fitness", headerName: "Fitness", flex: 1 },
-  { field: "recommendation", headerName: "AI Recommendation", flex: 1, valueGetter: ()=> "Start"  },
+  { field: "key_strength", headerName: "Key Strengths", flex: 1, valueGetter:()=>"Shot stopping Comman..." },
+  { field: "awareia_insights", headerName: "Awareia Insights", flex: 1, valueGetter : ()=> "Opponent likes to take long shot - difficult" },
+  { field: "alternative_options", headerName: "Alternative Options", flex: 1, valueGetter: ()=>"#Player 9 (More distribution)" },
 ];
 
 // const rows = [
@@ -70,6 +69,7 @@ const TeamMangement = () => {
 
   const rows = teamData.map((item, index) => ({
     ...item,
+    player_number : "#"+ " " + item.player_number,
     id: index,
     positions : item.position + " " + `(${item.pos})`
   }));
